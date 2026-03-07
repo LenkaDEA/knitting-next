@@ -1,0 +1,59 @@
+.about {
+  padding: var(--space-l) 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-l);
+
+  &__header {
+    display: flex;
+    flex-direction: var(--flex-direction);
+    gap: var(--space-l);
+  }
+
+  &__mainPhoto {
+    @include box(var(--cover-width), var(--cover-width));
+    object-fit: contain;
+
+    border-radius: var(--border-radius-element);
+  }
+
+  &__mission {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  &__hobbies {
+    padding: var(--space-xl) var(--space-l);
+    @include box(100%, 100%);
+    border-radius: var(--border-radius-element);
+    background-color: var(--color-text-bg);
+    @include flex-center;
+    flex-direction: column;
+    gap: var(--space-l);
+  }
+
+  &__container {
+    padding: var(--space-l);
+    width: 100%;
+    @include flex-center;
+    gap: var(--space-xxl);
+    flex-direction: var(--flex-direction);
+
+    &-element {
+      @include flex-center;
+      flex-direction: column;
+      gap: var(--space-l);
+    }
+  }
+
+  &__photo {
+    @include circle;
+    @include box(180px, 180px);
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: center;
+  }
+}

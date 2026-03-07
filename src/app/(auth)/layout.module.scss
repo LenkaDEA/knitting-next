@@ -1,0 +1,12 @@
+.authLayout {
+  padding: var(--space-xl) 0;
+  @include flex-center;
+
+  &__body {
+    padding: var(--space-xl);
+    width: 50%;
+    background-color: var(--color-text-bg);
+    border-radius: var(--border-radius-element);
+    border: 3px solid var(--color-header-bg);
+  }
+}
