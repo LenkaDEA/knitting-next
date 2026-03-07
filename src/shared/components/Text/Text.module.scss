@@ -1,0 +1,81 @@
+.text {
+  font-family: inherit;
+
+  &__title {
+    font-weight: 700;
+    font-size: var(--fs-title);
+    line-height: var(--lh-title);
+    letter-spacing: 0%;
+  }
+
+  &__button {
+    font-weight: 400;
+    font-size: var(--fs-button);
+    line-height: var(--lh-button);
+    letter-spacing: 0%;
+  }
+
+  // p-20
+  &__p-xl {
+    font-weight: 400;
+    font-size: var(--fs-text-xl);
+    line-height: var(--lh-text-xl);
+    letter-spacing: 0%;
+  }
+
+  // p-18
+  &__p-l {
+    font-weight: 400;
+    font-size: var(--fs-text-l);
+    line-height: var(--lh-text-l);
+    letter-spacing: 0%;
+  }
+
+  // p-16
+  &__p-m {
+    font-weight: 400;
+    font-size: var(--fs-text-m);
+    line-height: var(--lh-text-m);
+    letter-spacing: 0%;
+  }
+
+  // p-14
+  &__p-s {
+    font-weight: 400;
+    font-size: var(--fs-text-s);
+    line-height: var(--lh-text-s);
+    letter-spacing: 0%;
+  }
+
+  &__color-primary {
+    color: var(--color-text-primary);
+  }
+
+  &__color-secondary {
+    color: var(--color-text-secondary);
+  }
+
+  &__color-accent {
+    color: var(--color-text-accent);
+  }
+
+  &__color-inverse {
+    color: var(--color-text-inverse);
+  }
+
+  &__color-error {
+    color: var(--color-text-error);
+  }
+
+  &__weight-normal {
+    font-weight: 400;
+  }
+
+  &__weight-medium {
+    font-weight: 500;
+  }
+
+  &__weight-bold {
+    font-weight: 700;
+  }
+}

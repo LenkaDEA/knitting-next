@@ -1,0 +1,13 @@
+.video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  display: block;
+  border-radius: var(--border-radius-element);
+
+  &__loader {
+    padding: var(--space-xl) 0;
+    @include flex-center;
+    gap: var(--space-m);
+  }
+}

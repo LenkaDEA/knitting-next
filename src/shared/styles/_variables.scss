@@ -1,0 +1,190 @@
+$phone: 375px;
+$tablet: 768px;
+$desktop: 1024px;
+$large: 1440px;
+
+:root {
+  // --- Border Radius ---
+  --border-radius-page: 10px;
+  --border-radius-element: 5px;
+
+  --space-xxs: 8px;
+  --space-xs: 12px;
+  --space-s: 14px;
+  --space-m: 16px;
+  --space-l: 20px;
+  --space-xl: 24px;
+
+  // --- Adaptive values ---
+  --space-max-width: 540px;
+  --space-banner-top: 10px;
+  --space-banner-bottom: 5px;
+  --grid-columns: 1;
+
+  --space-pagination: 0;
+  --height-pagination: 24px;
+  --width-pagination: 20px;
+
+  --flex-direction: column;
+  --cover-width: 100%;
+
+  // --- Typography ---
+  // fs = font-size, lh = line-height (1rem = 16px)
+  --fs-title: 2rem; // 32px
+  --lh-title: 2.25rem; // 36px
+
+  --fs-text-xl: 1rem; // ex p-20 (16px)
+  --lh-text-xl: 1.375rem; // 22px
+
+  --fs-text-l: 1rem; // ex p-18 (16px)
+  --lh-text-l: 1.25rem; // 20px
+
+  --fs-text-m: 0.875rem; // ex p-16 (14px)
+  --lh-text-m: 1.25rem; // 20px
+
+  --fs-text-s: 0.75rem; // ex p-14 (12px)
+  --lh-text-s: 1rem; // 16px
+
+  --fs-button: 1rem; // 16px
+  --lh-button: 1rem; // 16px
+
+  // --- Spacing (Mobile) ---
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-s: 10px;
+  --space-m: 12px;
+  --space-l: 16px;
+  --space-xl: 20px;
+  --space-xxl: 40px;
+
+  @media (min-width: $phone) {
+    --space-banner-top: 30px;
+    --space-banner-bottom: 20px;
+  }
+
+  @media (min-width: $tablet) {
+    --space-max-width: 720px;
+    --space-banner-top: 50px;
+    --space-banner-bottom: 25px;
+    --grid-columns: 2;
+
+    --space-pagination: 100px;
+    --height-pagination: 42px;
+    --width-pagination: 38px;
+
+    --flex-direction: row;
+    --cover-width: 35%;
+
+    // Typography
+    --fs-title: 2.25rem; // 36px
+    --lh-title: 2.5rem; // 40px
+
+    --fs-text-xl: 1.125rem; // 18px
+    --lh-text-xl: 1.5rem; // 24px
+
+    // text-l
+
+    --fs-text-m: 1rem; // 16px
+    --lh-text-m: 1.25rem; // 20px
+
+    --fs-text-s: 0.875rem; // 14px
+    --lh-text-s: 1.125rem; // 18px
+
+    // Spacing
+    --space-xxs: 6px;
+    --space-xs: 10px;
+    --space-s: 12px;
+    --space-m: 14px;
+    --space-l: 18px;
+    --space-xl: 22px;
+    --space-xxl: 44px;
+  }
+
+  @media (min-width: $desktop) {
+    --space-max-width: 960px;
+    --space-banner-top: 100px;
+    --space-banner-bottom: 50px;
+    --grid-columns: 3;
+
+    --space-pagination: 220px;
+
+    // Typography
+    --fs-title: 2.75rem; // 44px
+    --lh-title: 3rem; // 48px
+
+    --fs-text-xl: 1.25rem; // 20px
+    --lh-text-xl: 1.5rem; // 24px
+
+    --fs-text-l: 1.125rem; // 18px
+    --lh-text-l: 1.375rem; // 22px
+
+    // text-m text-s
+
+    --fs-button: 1.125rem; // 18px
+    --lh-button: 1.125rem; // 18px
+
+    // Spacing
+    --space-xxs: 8px;
+    --space-xs: 12px;
+    --space-s: 14px;
+    --space-m: 16px;
+    --space-l: 20px;
+    --space-xl: 24px;
+    --space-xxl: 48px;
+  }
+
+  @media (min-width: $large) {
+    --space-max-width: 1140px;
+    --space-pagination: 320px;
+  }
+
+  // Colors
+  --color-body-bg: #ece2ef;
+  --color-header-bg: #c580dd;
+  --color-main-bg: #f0ecf1;
+  --color-text-bg: #f1def8;
+
+  --color-text-primary: #000000;
+  --color-text-secondary: #afadb5;
+  --color-text-accent: #7d518d;
+  --color-text-inverse: #ffffff;
+  --color-text-error: #a44848;
+
+  --color-input-text: #000000;
+  --color-input-bg: #ffffff;
+  --color-input-placeholder: #afadb5;
+  --color-input-border: #ffffff;
+  --color-input-bg-focus: #ffffff;
+  --color-input-border-focus: #7d518d;
+  --color-input-text-focus: #000000;
+  --color-input-bg-disabled: #ffffff;
+  --color-input-text-disabled: #00000033;
+
+  --color-button-primary-bg: #c580dd;
+  --color-button-primary-text: #ffffff;
+  --color-button-primary-bg-hover: #d19de4;
+  --color-button-primary-text-hover: #ffffff;
+  --color-button-primary-bg-disabled: #c7bdcb;
+  --color-button-primary-text-disabled: #ffffff;
+  --color-button-primary-bg-active: #7d518d;
+  --color-button-primary-text-active: #ffffff;
+
+  --color-loader-bg: #c580dd;
+
+  // OLD
+
+  --color-card-image-bg: #d9d9d9;
+  --color-card-bg: #ffffff;
+
+  --color-dropdown-options-bg: #ffffff;
+
+  --color-checkbox-bg: #ffffff;
+  --color-checkbox-border: #ffffff;
+  --color-checkbox-bg-hover: #ffffff;
+  --color-checkbox-border-hover: #518581;
+  --color-checkbox-bg-disabled: #ffffff80;
+  --color-checkbox-border-disabled: #ffffff00;
+  --color-checkbox-check: #518581;
+  --color-checkbox-check-hover: #518581;
+  --color-checkbox-check-disabled: #000000;
+}

@@ -1,0 +1,23 @@
+.multiDropdown {
+  position: relative;
+
+  &__optionsList {
+    margin: var(--space-xxs) 0;
+    padding: 0;
+    width: 100%;
+    z-index: 10;
+
+    position: absolute;
+
+    list-style: none;
+    background-color: var(--color-dropdown-options-bg);
+    box-shadow: 0px 4px 10px 0px #00000040;
+
+    border-radius: var(--border-radius-element);
+  }
+
+  &__option {
+    padding: var(--space-s) var(--space-xs);
+    cursor: pointer;
+  }
+}
