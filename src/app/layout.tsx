@@ -1,5 +1,6 @@
 import '@/styles/styles.scss';
 
+import type { Metadata } from 'next';
 import { NuqsAdapter } from 'nuqs/adapters/next';
 
 import Header from '@/app/_ui/Header';
@@ -9,6 +10,11 @@ import Container from './_ui/Container';
 import styles from './layout.module.scss';
 
 import '@/stores/setup';
+
+export const metadata: Metadata = {
+  title: 'Knitting',
+  description: 'Доступные уроки по вязанию',
+};
 
 export default function RootLayout({
   children,
