@@ -10,7 +10,6 @@ import globals from 'globals';
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Override default ignores of eslint-config-next.
   globalIgnores([
     'dist/**', 
     'build/**', 
