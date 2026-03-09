@@ -20,12 +20,8 @@ class CategoriesStore implements ICategoriesStore, ILocalStore {
   private _meta: MetaType = Meta.initial;
   private _data: CategoriesModel[] = [];
 
-  constructor(apiStore: IApiStore, initialData?: CategoriesModel[]) {
+  constructor(apiStore: IApiStore) {
     this._apiStore = apiStore;
-    if (initialData) {
-      this._data = initialData;
-      this._meta = Meta.success;
-    }
     makeObservable<CategoriesStore, PRIVATE_FIELDS_CATEGORIES>(this, {
       _data: observable.ref,
       _meta: observable,

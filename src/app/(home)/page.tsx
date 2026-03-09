@@ -1,13 +1,9 @@
 import { PAGE_SIZE } from '@/shared/config/meta';
 import { initializeStore } from '@/shared/stores/global/initializeStore';
 
-import { CategoriesProvider } from './_model/CategoriesContext';
 import CategoriesStore from './_model/CategoriesStore';
-import { PatternsProvider } from './_model/PatternsContext';
+import InitializeStores from './_model/InitializeStores';
 import PatternsStore from './_model/PatternsStore';
-import Banner from './_ui/Banner';
-import FilterActions from './_ui/FilterActions';
-import Pagination from './_ui/Pagination';
 import Patterns from './_ui/Patterns';
 
 type MySearchParams = Record<string, string | string[] | undefined>;
@@ -44,17 +40,11 @@ const Home: React.FC<HomeProps> = async ({ searchParams }) => {
 
   return (
     <>
-      <Banner />
-
-      <PatternsProvider initialData={patternsStore.data}>
-        <CategoriesProvider initialData={categoriesStore.data}>
-          <FilterActions />
-        </CategoriesProvider>
-
-        <Patterns patterns={patternsStore.data.data} metaStore={patternsStore.meta} />
-
-        <Pagination />
-      </PatternsProvider>
+      <InitializeStores
+        initialCategories={categoriesStore.data}
+        initialPatterns={patternsStore.data}
+      />
+      <Patterns patterns={patternsStore.data.data} metaStore={patternsStore.meta} />
     </>
   );
 };

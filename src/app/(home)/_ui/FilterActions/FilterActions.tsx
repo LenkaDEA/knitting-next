@@ -54,11 +54,11 @@ const FilterActions: React.FC = observer(() => {
   };
 
   const handleChangeInput = (value: string) => {
-    setSearchParams({ search: value });
+    setSearchParams({ search: value, page: '1' });
   };
 
   const handleClearSearch = () => {
-    setSearchParams({ search: '' });
+    setSearchParams({ search: '', page: '1' });
   };
 
   // if (categories.meta === Meta.error) return <Navigate to="/404" replace />;

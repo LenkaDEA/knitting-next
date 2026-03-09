@@ -24,12 +24,8 @@ class PatternsStore implements IPatternsStore, ILocalStore {
     this.getPatterns(params);
   }, 500);
 
-  constructor(apiStore: IApiStore, initialData?: StrapiResponse<PatternModel[]>) {
+  constructor(apiStore: IApiStore) {
     this._apiStore = apiStore;
-    if (initialData) {
-      this._data = initialData;
-      this._meta = Meta.success;
-    }
     makeObservable<PatternsStore, PRIVATE_FIELDS_PATTERNS>(this, {
       _data: observable.ref,
       _meta: observable,
