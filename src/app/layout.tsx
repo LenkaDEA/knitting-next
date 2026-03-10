@@ -1,7 +1,7 @@
 import '@/styles/styles.scss';
 
 import type { Metadata } from 'next';
-import { NuqsAdapter } from 'nuqs/adapters/next';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 import Header from '@/app/_ui/Header';
 import { RootProvider } from '@/shared/stores/context/RootContext';
@@ -24,12 +24,12 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <Header />
-        <Container tag={'main'} className={styles.App__main}>
-          <RootProvider>
-            <NuqsAdapter>{children}</NuqsAdapter>
-          </RootProvider>
-        </Container>
+        <NuqsAdapter>
+          <Header />
+          <Container tag={'main'} className={styles.App__main}>
+            <RootProvider>{children}</RootProvider>
+          </Container>
+        </NuqsAdapter>
       </body>
     </html>
   );
