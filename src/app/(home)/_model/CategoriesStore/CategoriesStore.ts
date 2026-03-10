@@ -11,7 +11,7 @@ import {
   type CategoriesModel,
 } from '@/stores/models/categories';
 
-import type { ICategoriesStore } from './types';
+import type { GetCategoriesParams, ICategoriesStore } from './types';
 
 type PRIVATE_FIELDS_CATEGORIES = '_data' | '_meta';
 
@@ -48,7 +48,7 @@ class CategoriesStore implements ICategoriesStore, ILocalStore {
     });
   }
 
-  async getCategories(): Promise<void> {
+  async getCategories(params: GetCategoriesParams): Promise<void> {
     try {
       runInAction(() => {
         this._meta = Meta.loading;
@@ -59,6 +59,8 @@ class CategoriesStore implements ICategoriesStore, ILocalStore {
         data: {},
         headers: {},
         endpoint: CATEGORIES_ENDPOINT,
+        cache: params.cache,
+        next: params.next,
       });
 
       runInAction(() => {

@@ -3,6 +3,8 @@ export type GetPatternsParams = {
   pageSize: number;
   searchValue: string;
   categories: string[];
+  cache?: RequestCache;
+  next?: NextFetchRequestConfig;
 };
 
 export type IPatternsStore = {

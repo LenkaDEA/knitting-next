@@ -15,6 +15,8 @@ export default class ApiStore implements IApiStore {
     const options: RequestInit = {
       method: params.method,
       headers: { ...params.headers },
+      cache: params.cache,
+      next: params.next,
     };
 
     if (params.method === HTTPMethod.GET) {

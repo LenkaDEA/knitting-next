@@ -17,6 +17,8 @@ export type RequestParams<ReqT> = {
    * - Для POST-запроса данные преобразуются к формату JSON и добавляются в тело запроса (необязательное требование)
    */
   data: ReqT;
+  cache?: RequestCache;
+  next?: NextFetchRequestConfig;
 };
 
 // Перечисление статусов ответа

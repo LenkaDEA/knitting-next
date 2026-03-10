@@ -79,6 +79,8 @@ class PatternsStore implements IPatternsStore, ILocalStore {
         },
         headers: {},
         endpoint: PATTERNS_ENDPOINT,
+        cache: params.cache,
+        next: params.next,
       });
 
       runInAction(() => {

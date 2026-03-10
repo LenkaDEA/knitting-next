@@ -29,14 +29,16 @@ const Home: React.FC<HomeProps> = async ({ searchParams }) => {
   const patternsStore = new PatternsStore(initializeStore().apiStore);
   const categoriesStore = new CategoriesStore(initializeStore().apiStore);
 
-  await patternsStore.getPatterns({
-    currentPage: page,
-    pageSize: PAGE_SIZE,
-    searchValue: search,
-    categories,
-  });
-
-  await categoriesStore.getCategories();
+  await Promise.all([
+    patternsStore.getPatterns({
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      searchValue: search,
+      categories,
+      next: { revalidate: 60 },
+    }),
+    categoriesStore.getCategories({ next: { revalidate: 60 } }),
+  ]);
 
   return (
     <>

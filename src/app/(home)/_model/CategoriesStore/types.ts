@@ -1,3 +1,8 @@
+export type GetCategoriesParams = {
+  cache?: RequestCache;
+  next?: NextFetchRequestConfig;
+};
+
 export type ICategoriesStore = {
-  getCategories(): Promise<void>;
+  getCategories(params: GetCategoriesParams): Promise<void>;
 };
