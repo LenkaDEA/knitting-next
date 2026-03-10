@@ -23,7 +23,7 @@ const PatternDetails: React.FC<{ params: Promise<{ documentId: string }> }> = as
 
   await patternDetailsStore.getPatternDetails({ documentId });
 
-  //   if (patternDetailsStore.meta === Meta.error) return <Navigate to="/404" replace />;
+  if (patternDetailsStore.meta === Meta.error) throw new Error('Урок не найден');
   if (patternDetailsStore.meta === Meta.loading) return <PageLoader />;
   return (
     <div className={styles.patternDetails}>

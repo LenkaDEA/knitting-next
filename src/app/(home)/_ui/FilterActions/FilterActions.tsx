@@ -9,13 +9,12 @@ import type { Option } from '@/components/MultiDropdown';
 import MultiDropdown from '@/components/MultiDropdown';
 import Text from '@/components/Text';
 import ClearIcon from '@/components/icons/ClearIcon';
+import { Meta } from '@/shared/config/meta';
 
 import { useCategoriesStore } from '../../_model/CategoriesContext';
 import { usePatternsStore } from '../../_model/PatternsContext';
 
 import styles from './FilterActions.module.scss';
-
-// import { Meta } from '@/config/meta';
 
 const FilterActions: React.FC = observer(() => {
   const patternsStore = usePatternsStore();
@@ -61,7 +60,7 @@ const FilterActions: React.FC = observer(() => {
     setSearchParams({ search: '', page: '1' });
   };
 
-  // if (categories.meta === Meta.error) return <Navigate to="/404" replace />;
+  if (categories.meta === Meta.error) throw new Error('Не удалось загрузить категории');
 
   return (
     <div className={styles.filterActions}>

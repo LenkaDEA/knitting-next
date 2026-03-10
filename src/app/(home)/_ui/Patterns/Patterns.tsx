@@ -1,9 +1,8 @@
 import Link from 'next/link';
 
 import defaultImg from '@/public/default.jpg';
-// import Button from '@/shared/components/Button';
 import Card from '@/shared/components/Card';
-// import EmptyStub from '@/shared/components/EmptyStub';
+import EmptyStub from '@/shared/components/EmptyStub';
 import PageLoader from '@/shared/components/PageLoader';
 import type { MetaType } from '@/shared/config/meta';
 import { Meta } from '@/shared/config/meta';
@@ -18,21 +17,8 @@ type PatternsProps = {
 
 const Patterns: React.FC<PatternsProps> = async ({ patterns, metaStore }) => {
   if (metaStore === Meta.loading) return <PageLoader />;
-  // if (patternsStore.meta === Meta.success && patternsStore.data.data.length === 0)
-  //   return (
-  //     <EmptyStub
-  //       text={`По вашему запросу ничего не нашлось`}
-  //       action={
-  //         <Button
-  //           onClick={() => {
-  //             //todo
-  //           }}
-  //         >
-  //           Сбросить поиск
-  //         </Button>
-  //       }
-  //     />
-  //   );
+  if (metaStore === Meta.success && patterns.length === 0)
+    return <EmptyStub text={`По вашему запросу ничего не нашлось`} />;
   return (
     <>
       <div className={styles.patterns}>
