@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 import type { StrapiResponse } from '@/shared/stores/models';
 import type { CategoriesModel } from '@/shared/stores/models/categories';
@@ -21,11 +21,11 @@ export default function InitializeStores({
   const categoriesStore = useCategoriesStore();
   const patternsStore = usePatternsStore();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     categoriesStore.hydrate(initialCategories);
   }, [initialCategories, categoriesStore]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     patternsStore.hydrate(initialPatterns);
   }, [initialPatterns, patternsStore]);
 
