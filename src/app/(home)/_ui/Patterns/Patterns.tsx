@@ -15,7 +15,7 @@ type PatternsProps = {
   metaStore: MetaType;
 };
 
-const Patterns: React.FC<PatternsProps> = async ({ patterns, metaStore }) => {
+const Patterns: React.FC<PatternsProps> = ({ patterns, metaStore }) => {
   if (metaStore === Meta.loading) return <PageLoader />;
   if (metaStore === Meta.success && patterns.length === 0)
     return <EmptyStub text={`По вашему запросу ничего не нашлось`} />;

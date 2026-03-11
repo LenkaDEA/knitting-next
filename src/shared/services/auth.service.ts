@@ -1,19 +1,23 @@
 const TOKEN_KEY = 'auth_token';
 
+const isClient = typeof window !== 'undefined';
+
 export const authService = {
   setToken(token: string): void {
-    localStorage.setItem(TOKEN_KEY, token);
+    if (isClient) localStorage.setItem(TOKEN_KEY, token);
   },
 
   getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY);
+    if (isClient) return localStorage.getItem(TOKEN_KEY);
+    else return null;
   },
 
   removeToken(): void {
-    localStorage.removeItem(TOKEN_KEY);
+    if (isClient) localStorage.removeItem(TOKEN_KEY);
   },
 
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    if (isClient) return !!this.getToken();
+    else return false;
   },
 };

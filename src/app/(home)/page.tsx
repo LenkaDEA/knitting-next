@@ -26,8 +26,9 @@ const Home: React.FC<HomeProps> = async ({ searchParams }) => {
         ? rawCategories
         : [];
 
-  const patternsStore = new PatternsStore(initializeStore().apiStore);
-  const categoriesStore = new CategoriesStore(initializeStore().apiStore);
+  const rootStore = initializeStore();
+  const patternsStore = new PatternsStore(rootStore.apiStore);
+  const categoriesStore = new CategoriesStore(rootStore.apiStore);
 
   await Promise.all([
     patternsStore.getPatterns({

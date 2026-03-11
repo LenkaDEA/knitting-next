@@ -77,7 +77,7 @@ const RegisterForm: React.FC = observer(() => {
         )}
 
         <Button type="submit" disabled={userStore.authMeta === Meta.loading}>
-          Войти
+          Создать аккаунт
         </Button>
       </form>
       <Link href="/login">У меня уже есть аккаунт</Link>

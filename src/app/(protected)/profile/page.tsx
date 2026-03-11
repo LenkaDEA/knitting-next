@@ -21,13 +21,7 @@ const UserProfile: React.FC = observer(() => {
   return (
     <div className={styles.profile}>
       <div className={styles.profile__body}>
-        <Image
-          alt={'Фотография изделия'}
-          src={defaultUser}
-          className={styles.profile__mainPhoto}
-          width={300}
-          height={300}
-        />
+        <Image alt={'Фотография изделия'} src={defaultUser} className={styles.profile__mainPhoto} />
         <div className={styles.profile__info}>
           <div className={styles.profile__subtitle}>
             <Text view="p-l" color="secondary">

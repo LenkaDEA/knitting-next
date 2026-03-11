@@ -1,6 +1,7 @@
 import parse from 'html-react-parser';
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import React from 'react';
+import React, { cache } from 'react';
 
 import GoBack from '@/components/GoBack';
 import PageLoader from '@/components/PageLoader';
@@ -15,22 +16,47 @@ import PatternDetailsStore from './_model/PatternDetailsStore';
 import LikeAction from './_ui/LikeAction';
 import styles from './page.module.scss';
 
+export const getCachedPatternDetails = cache(async (documentId: string) => {
+  const patternDetailsStore = new PatternDetailsStore(initializeStore().apiStore);
+  await patternDetailsStore.getPatternDetails({ documentId });
+
+  return {
+    data: patternDetailsStore.data,
+    meta: patternDetailsStore.meta,
+  };
+});
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ documentId: string }>;
+}): Promise<Metadata> {
+  const documentId = (await params).documentId;
+  const { data } = await getCachedPatternDetails(documentId);
+
+  return {
+    title: `${data.title} | Knitting`,
+    description: data.description,
+    openGraph: {
+      images: [{ url: data.cover?.url || defaultImg.src }],
+    },
+  };
+}
+
 const PatternDetails: React.FC<{ params: Promise<{ documentId: string }> }> = async ({
   params,
 }) => {
-  const patternDetailsStore = new PatternDetailsStore(initializeStore().apiStore);
   const documentId = (await params).documentId;
+  const { data, meta } = await getCachedPatternDetails(documentId);
 
-  await patternDetailsStore.getPatternDetails({ documentId });
-
-  if (patternDetailsStore.meta === Meta.error) throw new Error('Урок не найден');
-  if (patternDetailsStore.meta === Meta.loading) return <PageLoader />;
+  if (meta === Meta.error) throw new Error('Урок не найден');
+  if (meta === Meta.loading) return <PageLoader />;
   return (
     <div className={styles.patternDetails}>
       <GoBack />
       <div className={styles.patternDetails__body}>
         <Image
-          src={patternDetailsStore.data.cover?.url || defaultImg}
+          src={data.cover?.url || defaultImg}
           className={styles.patternDetails__cover}
           width={300}
           height={300}
@@ -39,18 +65,18 @@ const PatternDetails: React.FC<{ params: Promise<{ documentId: string }> }> = as
         <div className={styles.patternDetails__content}>
           <div className={styles.patternDetails__header}>
             <Text view="title" weight="bold">
-              {patternDetailsStore.data.title}
+              {data.title}
             </Text>
             <Text view="p-xl" color="secondary">
-              {patternDetailsStore.data.shortDescription}
+              {data.shortDescription}
             </Text>
           </div>
           <div className={styles.patternDetails__widgets}>
             <Text view="p-xl" weight="bold" color="accent">
-              {patternDetailsStore.data.tool}
+              {data.tool}
             </Text>{' '}
             {/* TODO: icons */}
-            <PatternDetailsProvider initialData={patternDetailsStore.data}>
+            <PatternDetailsProvider initialData={data}>
               <div className={styles.patternDetails__actions}>
                 <LikeAction documentId={documentId} />
               </div>
@@ -60,10 +86,10 @@ const PatternDetails: React.FC<{ params: Promise<{ documentId: string }> }> = as
       </div>
 
       <Text className={styles.patternDetails__description} tag="div">
-        {parse(patternDetailsStore.data.description)}
+        {parse(data.description)}
       </Text>
 
-      <RutubeVideoPlayer url={patternDetailsStore.data.videoUrl} />
+      <RutubeVideoPlayer url={data.videoUrl} />
     </div>
   );
 };

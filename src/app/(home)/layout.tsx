@@ -1,8 +1,15 @@
+import type { Metadata } from 'next';
+
 import { CategoriesProvider } from './_model/CategoriesContext';
 import { PatternsProvider } from './_model/PatternsContext';
 import Banner from './_ui/Banner';
 import FilterActions from './_ui/FilterActions';
 import Pagination from './_ui/Pagination';
+
+export const metadata: Metadata = {
+  title: 'Все схемы | Knitting',
+  description: 'Все схемы на Knitting',
+};
 
 export default function HomeLayout({
   children,

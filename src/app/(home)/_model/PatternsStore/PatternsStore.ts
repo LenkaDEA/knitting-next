@@ -1,4 +1,3 @@
-import debounce from 'debounce';
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
 
 import { PATTERNS_ENDPOINT } from '@/config/apiUrls';
@@ -19,10 +18,6 @@ class PatternsStore implements IPatternsStore, ILocalStore {
     data: [],
     meta: { pagination: { page: 0, pageCount: 0, pageSize: 0, total: 0 } },
   };
-
-  readonly getPatternsDebounced = debounce((params: GetPatternsParams) => {
-    this.getPatterns(params);
-  }, 500);
 
   constructor(apiStore: IApiStore) {
     this._apiStore = apiStore;
