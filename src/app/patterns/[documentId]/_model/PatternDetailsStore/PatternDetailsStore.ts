@@ -59,6 +59,7 @@ class PatternDetailsStore implements IPatternDetailsStore, ILocalStore {
       slug: this.data.slug,
       shortDescription: this.data.shortDescription,
       cover: this.data.cover,
+      tool: this.data.tool,
     };
   }
 

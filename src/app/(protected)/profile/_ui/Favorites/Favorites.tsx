@@ -8,6 +8,7 @@ import Card from '@/components/Card';
 import EmptyStub from '@/components/EmptyStub';
 import Text from '@/components/Text';
 import defaultPattern from '@/public/default.jpg';
+import ToolDisplay from '@/shared/components/ToolDisplay';
 import type { PatternModel } from '@/stores/models/patterns';
 
 import styles from './Favorites.module.scss';
@@ -40,6 +41,7 @@ const Favorites: React.FC<FavoritesProps> = ({ patterns = [] }) => {
                 image={pattern.cover?.url || defaultPattern}
                 title={pattern.title}
                 subtitle={pattern.shortDescription}
+                actionSlot={<ToolDisplay tool={pattern.tool} />}
               />
             </Link>
           ))}

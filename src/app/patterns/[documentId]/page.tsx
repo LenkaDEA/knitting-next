@@ -9,6 +9,7 @@ import RutubeVideoPlayer from '@/components/RutubeVideoPlayer';
 import Text from '@/components/Text';
 import { Meta } from '@/config/meta';
 import defaultImg from '@/public/default.jpg';
+import ToolDisplay from '@/shared/components/ToolDisplay';
 import { initializeStore } from '@/shared/stores/global/initializeStore';
 
 import { PatternDetailsProvider } from './_model/PatternDetailsContext';
@@ -72,10 +73,7 @@ const PatternDetails: React.FC<{ params: Promise<{ documentId: string }> }> = as
             </Text>
           </div>
           <div className={styles.patternDetails__widgets}>
-            <Text view="p-xl" weight="bold" color="accent">
-              {data.tool}
-            </Text>{' '}
-            {/* TODO: icons */}
+            <ToolDisplay tool={data.tool} />
             <PatternDetailsProvider initialData={data}>
               <div className={styles.patternDetails__actions}>
                 <LikeAction documentId={documentId} />

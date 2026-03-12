@@ -6,6 +6,7 @@ export type PatternApi = {
   title: string;
   shortDescription: string;
   cover?: CoverApi;
+  tool: string;
 };
 
 export type PatternModel = {
@@ -14,6 +15,7 @@ export type PatternModel = {
   title: string;
   shortDescription: string;
   cover?: CoverModel;
+  tool: string;
 };
 
 export const normalizePattern = (from: PatternApi): PatternModel => ({
@@ -22,4 +24,5 @@ export const normalizePattern = (from: PatternApi): PatternModel => ({
   title: from.title,
   shortDescription: from.shortDescription,
   cover: from.cover ? normalizeCover(from.cover) : undefined,
+  tool: from.tool,
 });
