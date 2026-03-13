@@ -1,0 +1,54 @@
+.switcher {
+  @include flex-center;
+  @include box(50px, 50px);
+
+  position: fixed;
+
+  bottom: var(--space-l);
+  right: var(--space-l);
+
+  z-index: 9999;
+
+  &__button {
+    background: none;
+    border: none;
+    @include box(100%, 100%);
+    background: var(--color-header-bg);
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--border-radius-page);
+    cursor: pointer;
+  }
+
+  &__dropdown {
+    position: absolute;
+    bottom: calc(100% + var(--space-xs));
+    left: 0;
+    right: 0;
+    background: var(--color-header-bg);
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--border-radius-page);
+    box-shadow: 0px 4px 10px 0px #00000040;
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: var(--color-button-primary-bg-hover);
+    }
+
+    &-active {
+      background-color: var(--color-button-primary-bg-active);
+    }
+  }
+}

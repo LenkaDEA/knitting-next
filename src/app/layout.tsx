@@ -1,15 +1,16 @@
 import '@/styles/styles.scss';
+import '@/stores/setup';
 
 import type { Metadata } from 'next';
+import { ThemeProvider } from 'next-themes';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 import Header from '@/app/_ui/Header';
 import { RootProvider } from '@/shared/stores/context/RootContext';
 
 import Container from './_ui/Container';
+import ThemeSwitcher from './_ui/ThemeSwitcher';
 import styles from './layout.module.scss';
-
-import '@/stores/setup';
 
 export const metadata: Metadata = {
   title: 'Knitting',
@@ -22,14 +23,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
+    <html lang="ru" suppressHydrationWarning>
       <body>
-        <NuqsAdapter>
-          <Header />
-          <Container tag={'main'} className={styles.App__main}>
-            <RootProvider>{children}</RootProvider>
-          </Container>
-        </NuqsAdapter>
+        <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange>
+          <NuqsAdapter>
+            <Header />
+            <Container tag={'main'} className={styles.App__main}>
+              <RootProvider>{children}</RootProvider>
+            </Container>
+            <ThemeSwitcher />
+          </NuqsAdapter>
+        </ThemeProvider>
       </body>
     </html>
   );

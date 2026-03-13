@@ -1,5 +1,5 @@
-export const STRAPI_LOCAL_URL = 'http://localhost:1337';
-export const STRAPI_URL = `${STRAPI_LOCAL_URL}/api`;
+const BASE_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+export const STRAPI_URL = `${BASE_URL}/api`;
 
 export const CATEGORIES_ENDPOINT = '/categories';
 export const PATTERNS_ENDPOINT = '/patterns';
