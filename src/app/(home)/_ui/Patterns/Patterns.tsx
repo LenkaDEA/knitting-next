@@ -1,45 +1,41 @@
+'use client';
+
+import { observer } from 'mobx-react-lite';
 import Link from 'next/link';
 
 import defaultImg from '@/public/default.jpg';
 import Card from '@/shared/components/Card';
 import EmptyStub from '@/shared/components/EmptyStub';
-import PageLoader from '@/shared/components/PageLoader';
 import ToolDisplay from '@/shared/components/ToolDisplay';
-import type { MetaType } from '@/shared/config/meta';
 import { Meta } from '@/shared/config/meta';
-import type { PatternModel } from '@/shared/stores/models/patterns';
+
+import { usePatternsStore } from '../../_model/PatternsContext';
 
 import styles from './Patterns.module.scss';
 
-type PatternsProps = {
-  patterns: PatternModel[];
-  metaStore: MetaType;
-};
+const Patterns: React.FC = observer(() => {
+  const patternsStore = usePatternsStore();
 
-const Patterns: React.FC<PatternsProps> = ({ patterns, metaStore }) => {
-  if (metaStore === Meta.loading) return <PageLoader />;
-  if (metaStore === Meta.success && patterns.length === 0)
+  if (patternsStore.meta === Meta.success && patternsStore.data.data.length === 0)
     return <EmptyStub text={`По вашему запросу ничего не нашлось`} />;
   return (
-    <>
-      <div className={styles.patterns}>
-        {patterns.map((pattern) => (
-          <Link
-            className="routLink"
-            href={`/patterns/${pattern.documentId}`}
-            key={pattern.documentId}
-          >
-            <Card
-              image={pattern.cover?.url || defaultImg}
-              title={pattern.title}
-              subtitle={pattern.shortDescription}
-              contentSlot={<ToolDisplay tool={pattern.tool} />}
-            />
-          </Link>
-        ))}
-      </div>
-    </>
+    <div className={styles.patterns}>
+      {patternsStore.data.data.map((pattern) => (
+        <Link
+          className="routLink"
+          href={`/patterns/${pattern.documentId}`}
+          key={pattern.documentId}
+        >
+          <Card
+            image={pattern.cover?.url || defaultImg}
+            title={pattern.title}
+            subtitle={pattern.shortDescription}
+            contentSlot={<ToolDisplay tool={pattern.tool} />}
+          />
+        </Link>
+      ))}
+    </div>
   );
-};
+});
 
 export default Patterns;

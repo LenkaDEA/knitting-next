@@ -4,7 +4,7 @@ import { PATTERNS_ENDPOINT } from '@/config/apiUrls';
 import { Meta, type MetaType } from '@/config/meta';
 import { HTTPMethod, type IApiStore } from '@/shared/stores/global/ApiStore';
 import type { ILocalStore } from '@/stores/interfaces';
-import type { StrapiResponse } from '@/stores/models';
+import type { StrapiMeta, StrapiResponse } from '@/stores/models';
 import { normalizePattern, type PatternApi, type PatternModel } from '@/stores/models/patterns';
 
 import type { GetPatternsParams, IPatternsStore } from './types';
@@ -94,6 +94,15 @@ class PatternsStore implements IPatternsStore, ILocalStore {
         this._meta = Meta.error;
       });
     }
+  }
+
+  appendPatterns(newPatterns: PatternModel[], newMeta: StrapiMeta) {
+    runInAction(() => {
+      this._data = {
+        data: [...this._data.data, ...newPatterns],
+        meta: newMeta,
+      };
+    });
   }
 
   destroy(): void {

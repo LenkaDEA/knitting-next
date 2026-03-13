@@ -4,7 +4,7 @@ import { CategoriesProvider } from './_model/CategoriesContext';
 import { PatternsProvider } from './_model/PatternsContext';
 import Banner from './_ui/Banner';
 import FilterActions from './_ui/FilterActions';
-import Pagination from './_ui/Pagination';
+import InfiniteScrollPatterns from './_ui/InfiniteScrollPatterns';
 
 export const metadata: Metadata = {
   title: 'Все схемы | Knitting',
@@ -23,7 +23,7 @@ export default function HomeLayout({
         <CategoriesProvider>
           <FilterActions />
           {children}
-          <Pagination />
+          <InfiniteScrollPatterns />
         </CategoriesProvider>
       </PatternsProvider>
     </>
