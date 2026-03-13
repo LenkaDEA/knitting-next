@@ -1,0 +1,23 @@
+.icon {
+  cursor: pointer;
+
+  &__primary {
+    fill: var(--color-text-primary);
+    stroke: var(--color-text-primary);
+  }
+
+  &__secondary {
+    fill: var(--color-text-secondary);
+    stroke: var(--color-text-secondary);
+  }
+
+  &__accent {
+    fill: var(--color-text-accent);
+    stroke: var(--color-text-accent);
+  }
+
+  &__inverse {
+    fill: var(--color-text-inverse);
+    stroke: var(--color-text-inverse);
+  }
+}

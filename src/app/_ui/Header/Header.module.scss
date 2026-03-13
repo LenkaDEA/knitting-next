@@ -1,0 +1,49 @@
+.header {
+    height: 64px;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background-color: var(--color-header-bg);
+
+    &__body {
+        @include box(100%, 100%);
+        display: grid;
+        grid-template-columns:repeat(3, 1fr);
+    }
+
+    &__logo {
+        @include flex-center;
+        justify-content: start;
+        gap: var(--space-s);
+
+        cursor: default;
+    }
+
+    &__navigation {
+        display: flex;
+        justify-content: center;
+        gap: var(--space-m);
+
+        height: 100%;
+        transition: box-shadow 0.3s;
+
+        :hover {
+            cursor: pointer;
+            box-shadow: 0 3px 0 0 var(--color-text-accent);
+        }
+
+        &-text {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &__user {
+        @include flex-center;
+        justify-content: end;
+        gap: var(--space-s);
+    }
+}

@@ -1,0 +1,25 @@
+.regForm {
+  @include flex-center;
+  flex-direction: column;
+  padding: var(--space-xl);
+  background-color: var(--color-text-bg);
+  border-radius: var(--border-radius-element);
+  border: 3px solid var(--color-header-bg);
+  gap: var(--space-l);
+
+  width: 100%;
+  max-width: 400px;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+    width: 100%;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+}

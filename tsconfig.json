@@ -18,9 +18,16 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+    "@/*": ["./src/*"],
+    "@/public/*": ["./public/*"],
+    "@/components/*": ["./src/shared/components/*"],
+    "@/styles/*": ["./src/shared/styles/*"],
+    "@/config/*": ["./src/shared/config/*"],
+    "@/stores/*": ["./src/shared/stores/*"],
+    "@/services/*": ["./src/shared/services/*"]
+}
   },
   "include": [
     "next-env.d.ts",

@@ -1,0 +1,58 @@
+.patternDetails {
+  padding: var(--space-l) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+
+  &__body {
+    padding: var(--space-m) 0;
+    display: flex;
+    flex-direction: var(--flex-direction);
+    gap: var(--space-xxl);
+  }
+
+  &__cover {
+    @include box(var(--cover-width), var(--cover-width));
+    height: 100%;
+    object-fit: contain;
+    border-radius: var(--border-radius-element);
+  }
+
+  &__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  &__widgets {
+    padding-top: var(--space-xxl);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+
+  &__actions {
+    padding: 0 var(--space-xxl);
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+  }
+
+  &__description {
+    padding: var(--space-m);
+    background-color: var(--color-text-bg);
+
+    border-radius: var(--border-radius-element);
+  }
+
+  &__noLike {
+    fill: none;
+  }
+}

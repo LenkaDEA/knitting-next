@@ -1,0 +1,41 @@
+'use client';
+
+import { observer } from 'mobx-react-lite';
+import Link from 'next/link';
+
+import defaultImg from '@/public/default.jpg';
+import Card from '@/shared/components/Card';
+import EmptyStub from '@/shared/components/EmptyStub';
+import ToolDisplay from '@/shared/components/ToolDisplay';
+import { Meta } from '@/shared/config/meta';
+
+import { usePatternsStore } from '../../_model/PatternsContext';
+
+import styles from './Patterns.module.scss';
+
+const Patterns: React.FC = observer(() => {
+  const patternsStore = usePatternsStore();
+
+  if (patternsStore.meta === Meta.success && patternsStore.data.data.length === 0)
+    return <EmptyStub text={`По вашему запросу ничего не нашлось`} />;
+  return (
+    <div className={styles.patterns}>
+      {patternsStore.data.data.map((pattern) => (
+        <Link
+          className="routLink"
+          href={`/patterns/${pattern.documentId}`}
+          key={pattern.documentId}
+        >
+          <Card
+            image={pattern.cover?.url || defaultImg}
+            title={pattern.title}
+            subtitle={pattern.shortDescription}
+            contentSlot={<ToolDisplay tool={pattern.tool} />}
+          />
+        </Link>
+      ))}
+    </div>
+  );
+});
+
+export default Patterns;

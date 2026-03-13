@@ -1,0 +1,27 @@
+.notFound {
+  padding: var(--space-l) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-l);
+
+  &__text404 {
+    font-size: 80px;
+  }
+
+  &__img {
+    @include box(100%, 290px);
+    object-fit: contain;
+  }
+
+  &__link {
+    padding: var(--space-m);
+    background-color: var(--color-header-bg);
+    border-radius: var(--border-radius-element);
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--space-m);
+  }
+}

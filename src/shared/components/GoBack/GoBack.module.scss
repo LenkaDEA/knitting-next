@@ -1,0 +1,10 @@
+.goBack {
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  &__icon {
+    transform: rotate(90deg);
+  }
+}
