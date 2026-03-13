@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 import { CategoriesProvider } from './_model/CategoriesContext';
 import { PatternsProvider } from './_model/PatternsContext';
@@ -21,9 +22,11 @@ export default function HomeLayout({
       <Banner />
       <PatternsProvider>
         <CategoriesProvider>
-          <FilterActions />
-          {children}
-          <InfiniteScrollPatterns />
+          <Suspense>
+            <FilterActions />
+            {children}
+            <InfiniteScrollPatterns />
+          </Suspense>
         </CategoriesProvider>
       </PatternsProvider>
     </>
