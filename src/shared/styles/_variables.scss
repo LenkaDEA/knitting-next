@@ -188,3 +188,54 @@ $large: 1440px;
   --color-checkbox-check-hover: #518581;
   --color-checkbox-check-disabled: #000000;
 }
+
+[data-theme='dark'] {
+  --color-body-bg: #161218;
+  --color-header-bg: #2a1e30;
+  --color-main-bg: #1e1822;
+  --color-text-bg: #2a202d;
+
+  --color-text-primary: #e6e0e8;
+  --color-text-secondary: #98929c;
+  --color-text-accent: #a161b6;
+  --color-text-inverse: #ffffff;
+  --color-text-error: #e27777;
+
+  --color-input-text: #e6e0e8;
+  --color-input-bg: #231c27;
+  --color-input-placeholder: #79737d;
+  --color-input-border: #3d3342;
+  --color-input-bg-focus: #2d2432;
+  --color-input-border-focus: #c580dd;
+  --color-input-text-focus: #ffffff;
+  --color-input-bg-disabled: #1e1822;
+  --color-input-text-disabled: #ffffff4d;
+
+  --color-button-primary-bg: #8c55a3;
+  --color-button-primary-text: #ffffff;
+  --color-button-primary-bg-hover: #a66dc0;
+  --color-button-primary-text-hover: #ffffff;
+  --color-button-primary-bg-disabled: #3d3342;
+  --color-button-primary-text-disabled: #79737d;
+  --color-button-primary-bg-active: #724287;
+  --color-button-primary-text-active: #ffffff;
+
+  --color-loader-bg: #c580dd;
+
+  // OLD
+
+  --color-card-image-bg: #322838;
+  --color-card-bg: #231c27;
+
+  --color-dropdown-options-bg: #231c27;
+
+  --color-checkbox-bg: #231c27;
+  --color-checkbox-border: #504457;
+  --color-checkbox-bg-hover: #2d2432;
+  --color-checkbox-border-hover: #73b6b1;
+  --color-checkbox-bg-disabled: #231c2780;
+  --color-checkbox-border-disabled: #50445780;
+  --color-checkbox-check: #73b6b1;
+  --color-checkbox-check-hover: #8cd3ce;
+  --color-checkbox-check-disabled: #ffffff4d;
+}
