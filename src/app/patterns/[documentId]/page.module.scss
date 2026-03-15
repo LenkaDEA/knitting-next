@@ -22,27 +22,22 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    gap: var(--space-m);
   }
 
   &__header {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-xl);
+    justify-content: space-between;
   }
 
   &__widgets {
-    padding-top: var(--space-xxl);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
+    flex-direction: row;
   }
 
   &__actions {
-    padding: 0 var(--space-xxl);
-    display: flex;
-    justify-content: flex-end;
-    align-items: end;
+    @include flex-center;
+    gap: var(--space-xs);
   }
 
   &__description {
@@ -50,9 +45,5 @@
     background-color: var(--color-text-bg);
 
     border-radius: var(--border-radius-element);
-  }
-
-  &__noLike {
-    fill: none;
   }
 }

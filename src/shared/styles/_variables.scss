@@ -1,7 +1,4 @@
-$phone: 375px;
-$tablet: 768px;
-$desktop: 1024px;
-$large: 1440px;
+@use 'breakpoints' as b;
 
 :root {
   // --- Border Radius ---
@@ -57,12 +54,12 @@ $large: 1440px;
   --space-xl: 20px;
   --space-xxl: 40px;
 
-  @media (min-width: $phone) {
+  @media (min-width: b.$phone) {
     --space-banner-top: 30px;
     --space-banner-bottom: 20px;
   }
 
-  @media (min-width: $tablet) {
+  @media (min-width: b.$tablet) {
     --space-max-width: 720px;
     --space-banner-top: 50px;
     --space-banner-bottom: 25px;
@@ -100,7 +97,7 @@ $large: 1440px;
     --space-xxl: 44px;
   }
 
-  @media (min-width: $desktop) {
+  @media (min-width: b.$desktop) {
     --space-max-width: 960px;
     --space-banner-top: 100px;
     --space-banner-bottom: 50px;
@@ -133,7 +130,7 @@ $large: 1440px;
     --space-xxl: 48px;
   }
 
-  @media (min-width: $large) {
+  @media (min-width: b.$large) {
     --space-max-width: 1140px;
     --space-pagination: 320px;
   }

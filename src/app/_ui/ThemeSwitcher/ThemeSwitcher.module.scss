@@ -2,27 +2,22 @@
   @include flex-center;
   @include box(50px, 50px);
 
-  position: fixed;
+  // bottom: var(--space-l);
+  // right: var(--space-l);
 
-  bottom: var(--space-l);
-  right: var(--space-l);
-
-  z-index: 9999;
+  z-index: 100;
+  position: relative;
 
   &__button {
     background: none;
     border: none;
-    @include box(100%, 100%);
-    background: var(--color-header-bg);
-    border: 1px solid var(--color-input-border);
-    border-radius: var(--border-radius-page);
+
     cursor: pointer;
   }
 
   &__dropdown {
     position: absolute;
-    bottom: calc(100% + var(--space-xs));
-    left: 0;
+    top: calc(100% + var(--space-xs));
     right: 0;
     background: var(--color-header-bg);
     border: 1px solid var(--color-input-border);

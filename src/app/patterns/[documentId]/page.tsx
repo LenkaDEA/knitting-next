@@ -68,17 +68,19 @@ const PatternDetails: React.FC<{ params: Promise<{ documentId: string }> }> = as
             <Text view="title" weight="bold">
               {data.title}
             </Text>
-            <Text view="p-xl" color="secondary">
-              {data.shortDescription}
-            </Text>
-          </div>
-          <div className={styles.patternDetails__widgets}>
-            <ToolDisplay tool={data.tool} />
             <PatternDetailsProvider initialData={data}>
               <div className={styles.patternDetails__actions}>
                 <LikeAction documentId={documentId} />
               </div>
             </PatternDetailsProvider>
+          </div>
+
+          <Text view="p-xl" color="secondary">
+            {data.shortDescription}
+          </Text>
+
+          <div className={styles.patternDetails__widgets}>
+            <ToolDisplay tool={data.tool} />
           </div>
         </div>
       </div>

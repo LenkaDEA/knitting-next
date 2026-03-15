@@ -76,6 +76,9 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
         }}
         afterSlot={
           <ArrowDownIcon
+            className={classNames(styles.multiDropdown__icon, {
+              [styles[`multiDropdown__icon_isOpen`]]: isOpen,
+            })}
             color="secondary"
             onClick={(e) => {
               e.stopPropagation();

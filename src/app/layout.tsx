@@ -9,7 +9,6 @@ import Header from '@/app/_ui/Header';
 import { RootProvider } from '@/shared/stores/context/RootContext';
 
 import Container from './_ui/Container';
-import ThemeSwitcher from './_ui/ThemeSwitcher';
 import styles from './layout.module.scss';
 
 export const metadata: Metadata = {
@@ -31,7 +30,6 @@ export default function RootLayout({
             <Container tag={'main'} className={styles.App__main}>
               <RootProvider>{children}</RootProvider>
             </Container>
-            <ThemeSwitcher />
           </NuqsAdapter>
         </ThemeProvider>
       </body>
