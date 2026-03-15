@@ -12,6 +12,8 @@ import UserIcon from '@/components/icons/UserIcon';
 import logo from '@/public/Logo-white.svg';
 import BurgerIcon from '@/shared/components/icons/BurgerIcon';
 
+import ThemeSwitcher from '../ThemeSwitcher';
+
 import styles from './Header.module.scss';
 
 const Header: React.FC = () => {
@@ -63,7 +65,9 @@ const Header: React.FC = () => {
             [styles.header__navigation_open]: isOpenMenu,
           })}
         >
-          <div className={styles.header__userMobile}>{userProfileLink}</div>
+          <div className={styles.header__userMobile}>
+            {userProfileLink} <ThemeSwitcher />
+          </div>
 
           <Link
             href="/"
@@ -89,7 +93,10 @@ const Header: React.FC = () => {
             </Text>
           </Link>
         </div>
-        <div className={styles.header__user}>{userProfileLink}</div>
+        <div className={styles.header__user}>
+          <ThemeSwitcher />
+          {userProfileLink}
+        </div>
       </Container>
     </header>
   );
