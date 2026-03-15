@@ -20,4 +20,13 @@
     padding: var(--space-s) var(--space-xs);
     cursor: pointer;
   }
+
+  &__icon {
+    rotate: 0deg;
+    transition: rotate 0.3s ease-in-out;
+
+    &_isOpen {
+      rotate: 180deg;
+    }
+  }
 }
