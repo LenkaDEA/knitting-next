@@ -1,16 +1,22 @@
 .filterActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+
+  &__input {
+    &_clear {
+      cursor: pointer;
+    }
+  }
+
+  &__multiDropdown {
+    width: fit-content;
+  }
+
+  &__total {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-xl);
-
-    &__multiDropdown {
-        width: fit-content;
-    }
-
-    &__total {
-        display: flex;
-        flex-direction: row;
-        align-items: baseline;
-        gap: var(--space-s);
-    }
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--space-s);
+  }
 }

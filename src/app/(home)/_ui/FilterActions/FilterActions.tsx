@@ -1,5 +1,6 @@
 'use client';
 
+import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import { parseAsArrayOf, parseAsString, useQueryStates } from 'nuqs';
 import React from 'react';
@@ -70,6 +71,7 @@ const FilterActions: React.FC = observer(() => {
         onChange={handleChangeInput}
         afterSlot={
           <ClearIcon
+            className={classNames({ [styles.filterActions__input_clear]: searchParams.search })}
             color={searchParams.search ? 'accent' : 'secondary'}
             onClick={handleClearSearch}
           />

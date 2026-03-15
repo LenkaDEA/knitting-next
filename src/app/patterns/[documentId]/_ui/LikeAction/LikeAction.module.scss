@@ -1,3 +1,6 @@
-.noLike {
-  fill: none;
+.like {
+  cursor: pointer;
+  &__noLike {
+    fill: none;
+  }
 }

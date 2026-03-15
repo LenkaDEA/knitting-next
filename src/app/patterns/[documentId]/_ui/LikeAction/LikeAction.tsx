@@ -20,7 +20,7 @@ const LikeAction: React.FC<{ documentId: string }> = observer(({ documentId }) =
   };
   return (
     <LikeIcon
-      className={classNames({ [styles.noLike]: !isFavorite })}
+      className={classNames(styles.like, { [styles.like__noLike]: !isFavorite })}
       width={50}
       height={50}
       color="accent"
