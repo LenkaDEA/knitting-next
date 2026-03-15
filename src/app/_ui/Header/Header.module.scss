@@ -1,49 +1,118 @@
+@use '@/styles/breakpoints' as b;
+
 .header {
-    height: 64px;
+  height: 64px;
 
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 
-    background-color: var(--color-header-bg);
+  background-color: var(--color-header-bg);
 
-    &__body {
-        @include box(100%, 100%);
-        display: grid;
-        grid-template-columns:repeat(3, 1fr);
+  &__body {
+    @include box(100%, 100%);
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+    @media (min-width: b.$tablet) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__logo {
+    @include flex-center;
+    justify-content: start;
+    gap: var(--space-s);
+
+    &-link {
+      @include flex-center;
+      justify-content: start;
+      gap: var(--space-s);
+    }
+  }
+
+  &__burgerMenu {
+    @media (min-width: b.$tablet) {
+      display: none;
+    }
+  }
+
+  &__navigation {
+    display: none;
+
+    &_open {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 60%;
+      height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+
+      background-color: var(--color-header-bg);
     }
 
-    &__logo {
-        @include flex-center;
-        justify-content: start;
-        gap: var(--space-s);
-
-        cursor: default;
+    &_current {
+      background-color: var(--color-text-accent);
     }
 
-    &__navigation {
-        display: flex;
-        justify-content: center;
-        gap: var(--space-m);
+    &-link {
+      padding: var(--space-xl);
+      height: 40px;
+      display: flex;
+      align-items: center;
+    }
 
+    @media (min-width: b.$tablet) {
+      display: flex;
+
+      justify-content: center;
+      gap: var(--space-m);
+
+      height: 100%;
+      transition: box-shadow 0.3s;
+
+      &_current {
+        background-color: transparent;
+        box-shadow: 0 3px 0 0 var(--color-text-accent);
+      }
+
+      &-link {
         height: 100%;
-        transition: box-shadow 0.3s;
-
-        :hover {
-            cursor: pointer;
-            box-shadow: 0 3px 0 0 var(--color-text-accent);
-        }
-
-        &-text {
-            height: 100%;
-            display: flex;
-            align-items: center;
-        }
+        padding: 0px;
+      }
     }
+  }
 
-    &__user {
-        @include flex-center;
-        justify-content: end;
-        gap: var(--space-s);
+  &__user {
+    display: none;
+    @media (min-width: b.$tablet) {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      gap: var(--space-s);
     }
+  }
+
+  &__userMobile {
+    padding: var(--space-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+
+    @media (min-width: b.$tablet) {
+      display: none;
+    }
+  }
+
+  &__burgerContainer {
+    @include flex-center;
+    justify-content: end;
+    gap: var(--space-s);
+
+    @media (min-width: b.$tablet) {
+      display: none;
+    }
+  }
 }
