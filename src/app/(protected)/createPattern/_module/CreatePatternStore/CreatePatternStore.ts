@@ -16,18 +16,20 @@ import type { ICreatePatternStore } from '.';
 
 type PRIVATE_FIELDS_CREATE_PATTERNS = '_data' | '_meta';
 
+const initialCreatePatternData: CreatePatternModel = {
+  slug: '',
+  title: '',
+  shortDescription: '',
+  // cover: null,
+  tool: TOOLS.hook.key,
+  description: '',
+  videoUrl: '',
+};
+
 class CreatePatternStore implements ICreatePatternStore, ILocalStore {
   private readonly _apiStore: IApiStore;
   private _meta: MetaType = Meta.initial;
-  private _data: CreatePatternModel = {
-    slug: '',
-    title: '',
-    shortDescription: '',
-    // cover: null,
-    tool: TOOLS.hook,
-    description: '',
-    videoUrl: '',
-  };
+  private _data: CreatePatternModel = initialCreatePatternData;
 
   constructor(apiStore: IApiStore, initialData?: CreatePatternModel) {
     this._apiStore = apiStore;
@@ -93,7 +95,8 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
   }
 
   destroy(): void {
-    //todo
+    this._data = initialCreatePatternData;
+    this._meta = Meta.initial;
   }
 }
 

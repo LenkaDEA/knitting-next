@@ -10,8 +10,8 @@ export type MetaType = (typeof Meta)[keyof typeof Meta];
 export const PAGE_SIZE = 9;
 
 export const TOOLS = {
-  hook: 'hook',
-  needles: 'needles',
+  hook: { key: 'hook', label: 'Крючок' },
+  needles: { key: 'needles', label: 'Спицы' },
 } as const;
 
-export type ToolValue = (typeof TOOLS)[keyof typeof TOOLS];
+export type ToolValue = keyof typeof TOOLS;
