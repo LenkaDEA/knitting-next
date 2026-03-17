@@ -1,6 +1,6 @@
+import CategoriesStore from '@/app/_model/CategoriesStore';
 import { initializeStore } from '@/shared/stores/global/initializeStore';
 
-import CategoriesStore from './_model/CategoriesStore';
 import InitializeStores from './_model/InitializeStores';
 import { fetchNextPatternsServer } from './_model/actions';
 import Patterns from './_ui/Patterns';
