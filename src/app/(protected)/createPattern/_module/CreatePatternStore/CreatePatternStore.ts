@@ -5,7 +5,6 @@ import { PATTERNS_ENDPOINT } from '@/shared/config/apiUrls';
 import { authService } from '@/shared/services';
 import type { StrapiResponse } from '@/shared/stores/models';
 import {
-  normalizeCreatePattern,
   type CreatePatternApi,
   type CreatePatternModel,
 } from '@/shared/stores/models/patterns/patternCreate';
@@ -39,6 +38,7 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
       data: computed,
       meta: computed,
       updateData: action,
+      resetMeta: action,
       destroy: action,
     });
   }
@@ -55,7 +55,26 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
     this._data = { ...this._data, ...newData };
   }
 
+  resetMeta(): void {
+    if (this._meta === Meta.error) {
+      this._meta = Meta.initial;
+    }
+  }
+
+  checkIsValid(): boolean {
+    const { title, shortDescription, description } = this._data;
+
+    return title.trim() !== '' && shortDescription.trim() !== '' && description.trim() !== '';
+  }
+
   async postCreatePattern(): Promise<void> {
+    if (!this.checkIsValid()) {
+      runInAction(() => {
+        this._meta = Meta.error;
+      });
+      return;
+    }
+
     const token = authService.getToken();
 
     try {
@@ -79,7 +98,6 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
 
       runInAction(() => {
         if (response.success) {
-          this._data = normalizeCreatePattern(response.data.data);
           this._meta = Meta.success;
         } else {
           this._meta = Meta.error;

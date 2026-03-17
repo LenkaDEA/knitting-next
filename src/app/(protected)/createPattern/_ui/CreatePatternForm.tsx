@@ -2,7 +2,7 @@
 
 import { observer } from 'mobx-react-lite';
 import type { SubmitEvent } from 'react';
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 
 import { useCategoriesStore } from '@/app/_model/CategoriesContext';
 import Button from '@/shared/components/Button';
@@ -11,7 +11,7 @@ import type { Option } from '@/shared/components/MultiDropdown';
 import MultiDropdown from '@/shared/components/MultiDropdown';
 import Text from '@/shared/components/Text';
 import type { ToolValue } from '@/shared/config/meta';
-import { TOOLS } from '@/shared/config/meta';
+import { Meta, TOOLS } from '@/shared/config/meta';
 import type { CategoriesModel } from '@/shared/stores/models/categories';
 import type { CreatePatternModel } from '@/shared/stores/models/patterns/patternCreate';
 
@@ -57,6 +57,7 @@ const CreatePatternForm: React.FC = observer(() => {
   const createPatternStore = useCreatePattern();
   const categories = useCategoriesStore();
   const [state, dispatch] = useReducer(reducerPattern, initialState);
+  const [isLoading, setIsLoading] = useState(false);
 
   const optionsCategories: Option[] = categories.data.map((item) => ({
     key: item.slug,
@@ -85,14 +86,22 @@ const CreatePatternForm: React.FC = observer(() => {
     field: keyof CreatePatternModel,
     value: string | ToolValue | File | null | CategoriesModel[]
   ) => {
+    createPatternStore.resetMeta();
     dispatch({ type: 'set_field', field, payload: value });
+    setIsLoading(false);
   };
 
   const handlePostPattern = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsLoading(true);
     createPatternStore.updateData(state);
-    await createPatternStore.postCreatePattern();
+    try {
+      await createPatternStore.postCreatePattern();
+    } finally {
+      if (createPatternStore.meta === Meta.error) {
+        setIsLoading(false);
+      }
+    }
   };
 
   const valueMultiDropDown: Option[] = [
@@ -101,6 +110,8 @@ const CreatePatternForm: React.FC = observer(() => {
       value: TOOLS[state.tool as ToolValue].label,
     },
   ];
+
+  if (createPatternStore.meta === Meta.success) return <>Урок успешно создан!</>;
 
   return (
     <div className={styles.createPattern}>
@@ -199,7 +210,12 @@ const CreatePatternForm: React.FC = observer(() => {
         </div>
 
         <div className={styles.createPattern__actions}>
-          <Button type="submit">Создать</Button>
+          {createPatternStore.meta === Meta.error && (
+            <Text color="error">Данные не заполнены или не уникальны</Text>
+          )}
+          <Button type="submit" loading={isLoading}>
+            Создать
+          </Button>
         </div>
       </form>
     </div>

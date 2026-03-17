@@ -34,8 +34,14 @@ const Button: React.FC<ButtonProps> = ({
       )}
       disabled={disabled || loading}
     >
-      {loading && <Loader size="s" className={styles.button__loader} />}
-      <Text view="button">{children}</Text>
+      {loading && (
+        <div className={styles.button__loaderWrapper}>
+          <Loader size="s" className={styles.button__loader} />
+        </div>
+      )}
+      <span className={classNames(styles.button__text, loading && styles.button__text_hidden)}>
+        <Text view="button">{children}</Text>
+      </span>
     </button>
   );
 };
