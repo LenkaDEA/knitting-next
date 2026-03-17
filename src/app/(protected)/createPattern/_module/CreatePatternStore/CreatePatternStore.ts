@@ -31,13 +31,8 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
   private _meta: MetaType = Meta.initial;
   private _data: CreatePatternModel = initialCreatePatternData;
 
-  constructor(apiStore: IApiStore, initialData?: CreatePatternModel) {
+  constructor(apiStore: IApiStore) {
     this._apiStore = apiStore;
-
-    if (initialData) {
-      this._data = initialData;
-      this._meta = Meta.success;
-    }
     makeObservable<CreatePatternStore, PRIVATE_FIELDS_CREATE_PATTERNS>(this, {
       _data: observable.ref,
       _meta: observable,

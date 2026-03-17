@@ -2,7 +2,6 @@
 
 import { useEffect, useState, type ReactNode } from 'react';
 
-import type { PatternFullModel } from '@/shared/stores/models/patterns';
 import { useRootStore } from '@/stores/context/RootContext';
 
 import CreatePatternStore from '../CreatePatternStore';
@@ -11,14 +10,9 @@ import { CreatePatternContext } from './CreatePatternContext';
 
 export const CreatePatternProvider: React.FC<{
   children: ReactNode;
-  initialData?: PatternFullModel;
-}> = ({ children, initialData }) => {
+}> = ({ children }) => {
   const { apiStore } = useRootStore();
-  const [store] = useState(() => new CreatePatternStore(apiStore, initialData));
-
-  useEffect(() => {
-    store.hydrate(initialData);
-  }, [initialData, store]);
+  const [store] = useState(() => new CreatePatternStore(apiStore));
 
   useEffect(() => {
     return () => {
