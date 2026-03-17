@@ -15,10 +15,10 @@ import { Meta, TOOLS } from '@/shared/config/meta';
 import type { CategoriesModel } from '@/shared/stores/models/categories';
 import type { CreatePatternModel } from '@/shared/stores/models/patterns/patternCreate';
 
-import { useCreatePattern } from '../_module/CreatePatternContext';
+import { useCreatePattern } from '../../_module/CreatePatternContext';
+import SuccessCreate from '../SuccessCreate';
 
 import styles from './CreatePatternForm.module.scss';
-import SuccessCreate from './SuccessCreate';
 
 const initialState: CreatePatternModel = {
   slug: '',
@@ -121,29 +121,31 @@ const CreatePatternForm: React.FC = observer(() => {
       </Text>
 
       <form className={styles.createPattern__form} onSubmit={handlePostPattern}>
-        <div className={styles.createPattern__field}>
-          <Text view="p-l" color="accent" weight="medium">
-            Название изделия
-          </Text>
-          <Input
-            value={state.title}
-            onChange={(value) => handleChange('title', value)}
-            placeholder="Введите название изделия"
-          />
-        </div>
+        <div className={styles.createPattern__rowContainer}>
+          <div className={styles.createPattern__field}>
+            <Text view="p-l" color="accent" weight="medium">
+              Название изделия
+            </Text>
+            <Input
+              value={state.title}
+              onChange={(value) => handleChange('title', value)}
+              placeholder="Введите название изделия"
+            />
+          </div>
 
-        <div className={styles.createPattern__field}>
-          <Text view="p-l" color="accent" weight="medium">
-            Обложка урока
-          </Text>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              const file = e.target.files?.[0] || null;
-              handleChange('cover', file);
-            }}
-          />
+          <div className={styles.createPattern__field}>
+            <Text view="p-l" color="accent" weight="medium">
+              Обложка урока
+            </Text>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0] || null;
+                handleChange('cover', file);
+              }}
+            />
+          </div>
         </div>
 
         <div className={styles.createPattern__field}>
@@ -157,16 +159,36 @@ const CreatePatternForm: React.FC = observer(() => {
           />
         </div>
 
-        <div className={styles.createPattern__field}>
-          <Text view="p-l" color="accent" weight="medium">
-            Категория изделия
-          </Text>
-          <MultiDropdown
-            options={optionsCategories}
-            value={selectedCategories}
-            getTitle={getTitleText}
-            onChange={handleSelectCategories}
-          />
+        <div className={styles.createPattern__rowContainer}>
+          <div className={styles.createPattern__field}>
+            <Text view="p-l" color="accent" weight="medium">
+              Категория изделия
+            </Text>
+            <MultiDropdown
+              options={optionsCategories}
+              value={selectedCategories}
+              getTitle={getTitleText}
+              onChange={handleSelectCategories}
+            />
+          </div>
+
+          <div className={styles.createPattern__field}>
+            <Text view="p-l" color="accent" weight="medium">
+              Инструмент
+            </Text>
+            <MultiDropdown
+              options={TOOL_OPTIONS}
+              value={valueMultiDropDown}
+              getTitle={(selected) => selected[0].value}
+              onChange={(selectedOptions) => {
+                if (selectedOptions.length === 0) {
+                  return;
+                }
+                const lastSelected = selectedOptions[selectedOptions.length - 1];
+                handleChange('tool', lastSelected.key);
+              }}
+            />
+          </div>
         </div>
 
         <div className={styles.createPattern__field}>
@@ -177,24 +199,6 @@ const CreatePatternForm: React.FC = observer(() => {
             value={state.description}
             onChange={(value) => handleChange('description', value)}
             placeholder="Введите короткое описание урока"
-          />
-        </div>
-
-        <div className={styles.createPattern__field}>
-          <Text view="p-l" color="accent" weight="medium">
-            Инструмент
-          </Text>
-          <MultiDropdown
-            options={TOOL_OPTIONS}
-            value={valueMultiDropDown}
-            getTitle={(selected) => selected[0].value}
-            onChange={(selectedOptions) => {
-              if (selectedOptions.length === 0) {
-                return;
-              }
-              const lastSelected = selectedOptions[selectedOptions.length - 1];
-              handleChange('tool', lastSelected.key);
-            }}
           />
         </div>
 

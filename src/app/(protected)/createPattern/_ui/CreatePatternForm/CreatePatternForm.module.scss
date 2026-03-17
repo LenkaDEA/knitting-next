@@ -3,12 +3,22 @@
 
   display: flex;
   flex-direction: column;
-  gap: var(--space-l);
+  gap: var(--space-xl);
 
   &__form {
     display: flex;
     flex-direction: column;
     gap: var(--space-l);
+  }
+
+  &__rowContainer {
+    display: flex;
+    flex-direction: var(--flex-direction);
+    gap: var(--space-l);
+  }
+
+  &__rowContainer > &__field {
+    flex: 1;
   }
 
   &__field {

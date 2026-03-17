@@ -2,7 +2,7 @@ import CategoriesStore from '@/app/_model/CategoriesStore';
 import { initializeStore } from '@/shared/stores/global/initializeStore';
 
 import InitializeCreateStores from './_module/InitializeCreateStores';
-import CreatePatternForm from './_ui/CreatePatternForm';
+import CreatePatternForm from './_ui/CreatePatternForm/CreatePatternForm';
 
 const CreatePattern: React.FC = async () => {
   const rootStore = initializeStore();
