@@ -18,6 +18,7 @@ import type { CreatePatternModel } from '@/shared/stores/models/patterns/pattern
 import { useCreatePattern } from '../_module/CreatePatternContext';
 
 import styles from './CreatePatternForm.module.scss';
+import SuccessCreate from './SuccessCreate';
 
 const initialState: CreatePatternModel = {
   slug: '',
@@ -111,7 +112,7 @@ const CreatePatternForm: React.FC = observer(() => {
     },
   ];
 
-  if (createPatternStore.meta === Meta.success) return <>Урок успешно создан!</>;
+  if (createPatternStore.meta === Meta.success) return <SuccessCreate />;
 
   return (
     <div className={styles.createPattern}>

@@ -5,9 +5,15 @@
   display: block;
   border-radius: var(--border-radius-element);
 
-  &__loader {
+  &__img {
+    @include box(100%, 290px);
+    object-fit: contain;
+  }
+
+  &__empty {
     padding: var(--space-xl) 0;
     @include flex-center;
     gap: var(--space-m);
+    flex-direction: column;
   }
 }

@@ -1,0 +1,18 @@
+.successCreate {
+  padding: var(--space-m) 0px;
+  @include flex-center;
+  flex-direction: column;
+  gap: var(--space-m);
+
+  text-align: center;
+
+  &__img {
+    @include box(100%, 290px);
+    object-fit: contain;
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--space-m);
+  }
+}

@@ -1,5 +1,7 @@
-import Loader from '@/components/Loader';
+import Image from 'next/image';
+
 import Text from '@/components/Text';
+import imgCat from '@/public/NotFound-cat.png';
 
 import styles from './RutubeVideoPlayer.module.scss';
 
@@ -10,10 +12,10 @@ type RutubeVideoPlayerType = {
 const RutubeVideoPlayer: React.FC<RutubeVideoPlayerType> = ({ url }) => {
   if (!url)
     return (
-      <div className={styles.video__loader}>
-        <Loader />
-        <Text view="p-m" color="accent" weight="medium">
-          Загрузка видео
+      <div className={styles.video__empty}>
+        <Image className={styles.video__img} src={imgCat} alt="Грустный котик" />
+        <Text view="p-xl" color="accent" weight="medium">
+          К сожалению, у урока нет видео
         </Text>
       </div>
     );
