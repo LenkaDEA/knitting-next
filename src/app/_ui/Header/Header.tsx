@@ -17,6 +17,7 @@ import { ROUTES } from '@/shared/config/routes';
 import ThemeSwitcher from '../ThemeSwitcher';
 
 import styles from './Header.module.scss';
+import { NAVIGATION_LINKS } from './config';
 
 const Header: React.FC = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -69,26 +70,19 @@ const Header: React.FC = () => {
 
         {/* Desktop navigation */}
         <nav className={styles.header__navigation}>
-          <Link
-            href={ROUTES.HOME}
-            className={classNames('routLink', styles[`header__navigation-link`], {
-              [styles.header__navigation_current]: currentPath(ROUTES.HOME),
-            })}
-          >
-            <Text view="p-m" color="inverse" weight="bold">
-              Все схемы
-            </Text>
-          </Link>
-          <Link
-            href={ROUTES.ABOUT}
-            className={classNames('routLink', styles[`header__navigation-link`], {
-              [styles.header__navigation_current]: currentPath(ROUTES.ABOUT),
-            })}
-          >
-            <Text view="p-m" color="inverse" weight="bold">
-              Обо мне
-            </Text>
-          </Link>
+          {NAVIGATION_LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={classNames('routLink', styles[`header__navigation-link`], {
+                [styles.header__navigation_current]: currentPath(href),
+              })}
+            >
+              <Text view="p-m" color="inverse" weight="bold">
+                {label}
+              </Text>
+            </Link>
+          ))}
         </nav>
 
         {/* Mobile navigation overlay */}
@@ -104,28 +98,23 @@ const Header: React.FC = () => {
               <div className={styles.header__userMobile}>
                 {userProfileLink} <ThemeSwitcher />
               </div>
-              <Link
-                href={ROUTES.HOME}
-                className={classNames('routLink', styles[`header__navigation-link`], {
-                  [styles.header__navigation_current]: currentPath(ROUTES.HOME),
-                })}
-                onClick={() => setIsOpenMenu(false)}
-              >
-                <Text view="p-m" color="inverse" weight="bold">
-                  Все схемы
-                </Text>
-              </Link>
-              <Link
-                href={ROUTES.ABOUT}
-                className={classNames('routLink', styles[`header__navigation-link`], {
-                  [styles.header__navigation_current]: currentPath(ROUTES.ABOUT),
-                })}
-                onClick={() => setIsOpenMenu(false)}
-              >
-                <Text view="p-m" color="inverse" weight="bold">
-                  Обо мне
-                </Text>
-              </Link>
+
+              <nav>
+                {NAVIGATION_LINKS.map(({ href, label }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={classNames('routLink', styles[`header__navigation-link`], {
+                      [styles.header__navigation_current]: currentPath(href),
+                    })}
+                    onClick={() => setIsOpenMenu(false)}
+                  >
+                    <Text view="p-m" color="inverse" weight="bold">
+                      {label}
+                    </Text>
+                  </Link>
+                ))}
+              </nav>
             </motion.div>
           )}
         </AnimatePresence>
