@@ -74,13 +74,19 @@ const PatternDetails: React.FC<{ params: Promise<{ documentId: string }> }> = as
               </div>
             </PatternDetailsProvider>
           </div>
-
           <Text view="p-xl" color="secondary">
             {data.shortDescription}
           </Text>
-
           <div className={styles.patternDetails__widgets}>
             <ToolDisplay tool={data.tool} />
+            <div className={styles.patternDetails__author}>
+              <Text color="secondary" view="p-s">
+                Автор
+              </Text>
+              <Text color="accent" view="p-l">
+                {data.author ? data.author.username : 'Команда-Knitting'}
+              </Text>
+            </div>
           </div>
         </div>
       </div>
