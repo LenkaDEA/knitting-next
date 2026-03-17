@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { parseAsArrayOf, parseAsString, useQueryStates } from 'nuqs';
 import React from 'react';
 
+import { useCategoriesStore } from '@/app/_model/CategoriesContext';
 import Input from '@/components/Input';
 import type { Option } from '@/components/MultiDropdown';
 import MultiDropdown from '@/components/MultiDropdown';
@@ -12,7 +13,6 @@ import Text from '@/components/Text';
 import ClearIcon from '@/components/icons/ClearIcon';
 import { Meta } from '@/shared/config/meta';
 
-import { useCategoriesStore } from '../../_model/CategoriesContext';
 import { usePatternsStore } from '../../_model/PatternsContext';
 
 import styles from './FilterActions.module.scss';

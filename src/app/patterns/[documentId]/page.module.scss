@@ -33,6 +33,17 @@
   &__widgets {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-l);
+  }
+
+  &__author {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+    gap: var(--space-xs);
   }
 
   &__actions {

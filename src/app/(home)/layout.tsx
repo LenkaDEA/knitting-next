@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 
-import { CategoriesProvider } from './_model/CategoriesContext';
+import { CategoriesProvider } from '@/app/_model/CategoriesContext';
+
 import { PatternsProvider } from './_model/PatternsContext';
 import Banner from './_ui/Banner';
 import FilterActions from './_ui/FilterActions';

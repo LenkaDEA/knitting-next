@@ -1,0 +1,36 @@
+.createPattern {
+  padding: var(--space-l) 0px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+  }
+
+  &__rowContainer {
+    display: flex;
+    flex-direction: var(--flex-direction);
+    gap: var(--space-l);
+  }
+
+  &__rowContainer > &__field {
+    flex: 1;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+}

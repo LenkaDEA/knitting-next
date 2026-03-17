@@ -2,6 +2,7 @@
 
 import { observer } from 'mobx-react-lite';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import Button from '@/components/Button';
@@ -14,6 +15,8 @@ import styles from './page.module.scss';
 
 const UserProfile: React.FC = observer(() => {
   const { userStore } = useRootStore();
+
+  const router = useRouter();
 
   useEffect(() => {
     userStore.checkAuth();
@@ -42,6 +45,7 @@ const UserProfile: React.FC = observer(() => {
           </div>
 
           <div className={styles.profile__actions}>
+            <Button onClick={() => router.replace('/createPattern')}>Создать урок</Button>
             <Button
               onClick={() => {
                 userStore.logout();

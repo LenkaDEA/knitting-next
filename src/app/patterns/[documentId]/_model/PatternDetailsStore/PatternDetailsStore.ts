@@ -80,7 +80,7 @@ class PatternDetailsStore implements IPatternDetailsStore, ILocalStore {
       const response = await this._apiStore.request<StrapiResponse<PatternFullModel>>({
         method: HTTPMethod.GET,
         data: {
-          populate: ['cover'],
+          populate: ['cover', 'author'],
         },
         headers: {},
         endpoint: `${PATTERNS_ENDPOINT}/${params.documentId}`,

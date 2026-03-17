@@ -2,11 +2,11 @@
 
 import { useLayoutEffect } from 'react';
 
+import { useCategoriesStore } from '@/app/_model/CategoriesContext/useCategoriesStore';
 import type { StrapiResponse } from '@/shared/stores/models';
 import type { CategoriesModel } from '@/shared/stores/models/categories';
 import type { PatternModel } from '@/shared/stores/models/patterns';
 
-import { useCategoriesStore } from './CategoriesContext/useCategoriesStore';
 import { usePatternsStore } from './PatternsContext';
 
 type HydrateCategoriesProps = {
