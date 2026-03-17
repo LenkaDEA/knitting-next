@@ -61,7 +61,7 @@ export type IApiStore = {
   readonly baseUrl: string;
 
   // Метод, с помощью которого делается запрос. TODO: реализовать в классе ApiStore
-  request<SuccessT, ErrorT = unknown, ReqT = Record<string, unknown>>(
+  request<SuccessT, ErrorT = unknown, ReqT = Record<string, unknown> | FormData>(
     params: RequestParams<ReqT>
   ): Promise<ApiResponse<SuccessT, ErrorT>>;
 };

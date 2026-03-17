@@ -1,4 +1,4 @@
-import { action, computed, makeObservable, observable, runInAction } from 'mobx';
+import { action, computed, makeObservable, observable, runInAction, toJS } from 'mobx';
 
 import { Meta, TOOLS, type MetaType } from '@/config/meta';
 import { PATTERNS_ENDPOINT } from '@/shared/config/apiUrls';
@@ -20,7 +20,7 @@ const initialCreatePatternData: CreatePatternModel = {
   slug: '',
   title: '',
   shortDescription: '',
-  // cover: null,
+  cover: null,
   tool: TOOLS.hook.key,
   description: '',
   videoUrl: '',
@@ -68,16 +68,19 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
         this._meta = Meta.loading;
       });
 
+      const { cover, ...restData } = toJS(this._data);
+      const formData = new FormData();
+      formData.append('data', JSON.stringify(restData));
+      if (cover) {
+        formData.append('files.cover', cover);
+      }
+
       const response = await this._apiStore.request<StrapiResponse<CreatePatternApi>>({
         method: HTTPMethod.POST,
-        data: {
-          data: this._data,
-        },
-        headers: {},
+        data: formData,
+        headers: { Authorization: `Bearer ${token}` },
         endpoint: `${PATTERNS_ENDPOINT}`,
       });
-
-      console.log(response, token);
 
       runInAction(() => {
         if (response.success) {

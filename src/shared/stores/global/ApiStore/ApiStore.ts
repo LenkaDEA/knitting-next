@@ -24,17 +24,21 @@ export default class ApiStore implements IApiStore {
     }
 
     if (params.method === HTTPMethod.POST) {
-      options.headers = {
-        ...options.headers,
-        'Content-Type': 'application/json;charset=utf-8',
-      };
-      options.body = JSON.stringify(params.data);
+      if (params.data instanceof FormData) {
+        options.body = params.data;
+      } else {
+        options.headers = {
+          ...options.headers,
+          'Content-Type': 'application/json;charset=utf-8',
+        };
+        options.body = JSON.stringify(params.data);
+      }
     }
 
     return [endpoint, options];
   }
 
-  async request<SuccessT, ErrorT = unknown, ReqT = Record<string, unknown>>(
+  async request<SuccessT, ErrorT = unknown, ReqT = Record<string, unknown> | FormData>(
     params: RequestParams<ReqT>
   ): Promise<ApiResponse<SuccessT, ErrorT>> {
     try {

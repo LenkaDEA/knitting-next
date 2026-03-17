@@ -22,7 +22,7 @@ const initialState: CreatePatternModel = {
   title: '',
   shortDescription: '',
   description: '',
-  // cover?: File | null;
+  cover: null,
   tool: TOOLS.hook.key,
   videoUrl: '',
 };
@@ -33,9 +33,9 @@ const TOOL_OPTIONS = Object.values(TOOLS).map((item) => ({
 }));
 
 type Action = {
-  type: 'set_field' | 'set_tool';
+  type: 'set_field';
   field: keyof CreatePatternModel;
-  payload: string | ToolValue;
+  payload: string | ToolValue | File | null;
 };
 
 function reducerPattern(state: CreatePatternModel, action: Action): CreatePatternModel {
@@ -54,7 +54,10 @@ const CreatePattern: React.FC = observer(() => {
   const [createPatternStore] = useState(() => new CreatePatternStore(initializeStore().apiStore));
   const [state, dispatch] = useReducer(reducerPattern, initialState);
 
-  const handleChange = (field: keyof CreatePatternModel, value: string | ToolValue) => {
+  const handleChange = (
+    field: keyof CreatePatternModel,
+    value: string | ToolValue | File | null
+  ) => {
     dispatch({ type: 'set_field', field, payload: value });
   };
 
@@ -79,7 +82,6 @@ const CreatePattern: React.FC = observer(() => {
 
       <form className={styles.createPattern__form} onSubmit={handlePostPattern}>
         <div className={styles.createPattern__field}>
-          {' '}
           <Text view="p-l" color="accent" weight="medium">
             Название изделия
           </Text>
@@ -87,6 +89,20 @@ const CreatePattern: React.FC = observer(() => {
             value={state.title}
             onChange={(value) => handleChange('title', value)}
             placeholder="Введите название изделия"
+          />
+        </div>
+
+        <div className={styles.createPattern__field}>
+          <Text view="p-l" color="accent" weight="medium">
+            Обложка урока
+          </Text>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files?.[0] || null;
+              handleChange('cover', file);
+            }}
           />
         </div>
 
