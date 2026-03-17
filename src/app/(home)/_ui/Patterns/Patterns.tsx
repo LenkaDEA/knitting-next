@@ -8,6 +8,7 @@ import Card from '@/shared/components/Card';
 import EmptyStub from '@/shared/components/EmptyStub';
 import ToolDisplay from '@/shared/components/ToolDisplay';
 import { Meta } from '@/shared/config/meta';
+import { getPatternUrl } from '@/shared/config/routes';
 
 import { usePatternsStore } from '../../_model/PatternsContext';
 
@@ -23,7 +24,7 @@ const Patterns: React.FC = observer(() => {
       {patternsStore.data.data.map((pattern) => (
         <Link
           className="routLink"
-          href={`/patterns/${pattern.documentId}`}
+          href={getPatternUrl(pattern.documentId)}
           key={pattern.documentId}
         >
           <Card

@@ -12,6 +12,7 @@ import Text from '@/components/Text';
 import UserIcon from '@/components/icons/UserIcon';
 import logo from '@/public/Logo-white.svg';
 import BurgerIcon from '@/shared/components/icons/BurgerIcon';
+import { ROUTES } from '@/shared/config/routes';
 
 import ThemeSwitcher from '../ThemeSwitcher';
 
@@ -37,7 +38,7 @@ const Header: React.FC = () => {
 
   const userProfileLink = (
     <motion.span whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.85 }}>
-      <Link className="routLink" href={'/profile'} onClick={() => setIsOpenMenu(false)}>
+      <Link className="routLink" href={ROUTES.PROFILE} onClick={() => setIsOpenMenu(false)}>
         <UserIcon color="inverse" />
       </Link>
     </motion.span>
@@ -47,7 +48,7 @@ const Header: React.FC = () => {
     <header className={styles.header} ref={rootRef}>
       <Container className={styles.header__body}>
         <div className={styles.header__logo}>
-          <Link href={'/'} className={classNames('routLink', styles['header__logo-link'])}>
+          <Link href={ROUTES.HOME} className={classNames('routLink', styles['header__logo-link'])}>
             <Image src={logo} alt={'Логотип сайта'} width={36} height={36} />
             <Text view="p-xl" weight="bold" color="inverse">
               Knitting
@@ -69,9 +70,9 @@ const Header: React.FC = () => {
         {/* Desktop navigation */}
         <nav className={styles.header__navigation}>
           <Link
-            href="/"
+            href={ROUTES.HOME}
             className={classNames('routLink', styles[`header__navigation-link`], {
-              [styles.header__navigation_current]: currentPath('/'),
+              [styles.header__navigation_current]: currentPath(ROUTES.HOME),
             })}
           >
             <Text view="p-m" color="inverse" weight="bold">
@@ -79,9 +80,9 @@ const Header: React.FC = () => {
             </Text>
           </Link>
           <Link
-            href="/about"
+            href={ROUTES.ABOUT}
             className={classNames('routLink', styles[`header__navigation-link`], {
-              [styles.header__navigation_current]: currentPath('/about'),
+              [styles.header__navigation_current]: currentPath(ROUTES.ABOUT),
             })}
           >
             <Text view="p-m" color="inverse" weight="bold">
@@ -104,9 +105,9 @@ const Header: React.FC = () => {
                 {userProfileLink} <ThemeSwitcher />
               </div>
               <Link
-                href="/"
+                href={ROUTES.HOME}
                 className={classNames('routLink', styles[`header__navigation-link`], {
-                  [styles.header__navigation_current]: currentPath('/'),
+                  [styles.header__navigation_current]: currentPath(ROUTES.HOME),
                 })}
                 onClick={() => setIsOpenMenu(false)}
               >
@@ -115,9 +116,9 @@ const Header: React.FC = () => {
                 </Text>
               </Link>
               <Link
-                href="/about"
+                href={ROUTES.ABOUT}
                 className={classNames('routLink', styles[`header__navigation-link`], {
-                  [styles.header__navigation_current]: currentPath('/about'),
+                  [styles.header__navigation_current]: currentPath(ROUTES.ABOUT),
                 })}
                 onClick={() => setIsOpenMenu(false)}
               >

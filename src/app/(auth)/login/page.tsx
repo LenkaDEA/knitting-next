@@ -10,6 +10,7 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Text from '@/components/Text';
 import { Meta } from '@/config/meta';
+import { ROUTES } from '@/shared/config/routes';
 import { useRootStore } from '@/stores/context/RootContext';
 
 import styles from './page.module.scss';
@@ -18,7 +19,7 @@ const LoginForm: React.FC = observer(() => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { userStore } = useRootStore();
-  const route = useRouter();
+  const router = useRouter();
 
   const handleChangeEmail = (value: string) => {
     setEmail(value);
@@ -29,7 +30,7 @@ const LoginForm: React.FC = observer(() => {
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const isLogin = await userStore.getLogin({ email: email, password: password });
-    if (isLogin) route.push('/profile');
+    if (isLogin) router.push(ROUTES.PROFILE);
   };
 
   return (
@@ -65,7 +66,7 @@ const LoginForm: React.FC = observer(() => {
         </Button>
       </form>
 
-      <Link href="/signup">Зарегистрироваться</Link>
+      <Link href={ROUTES.SING_UP}>Зарегистрироваться</Link>
     </div>
   );
 });
