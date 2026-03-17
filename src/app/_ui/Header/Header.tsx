@@ -1,6 +1,7 @@
 'use client';
 
 import classNames from 'classnames';
+import { AnimatePresence, motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -35,9 +36,11 @@ const Header: React.FC = () => {
   }, [isOpenMenu]);
 
   const userProfileLink = (
-    <Link className="routLink" href={'/profile'} onClick={() => setIsOpenMenu(false)}>
-      <UserIcon color="inverse" />
-    </Link>
+    <motion.span whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.85 }}>
+      <Link className="routLink" href={'/profile'} onClick={() => setIsOpenMenu(false)}>
+        <UserIcon color="inverse" />
+      </Link>
+    </motion.span>
   );
 
   return (
@@ -52,47 +55,79 @@ const Header: React.FC = () => {
           </Link>
         </div>
         <div className={styles.header__burgerContainer}>
-          <BurgerIcon
-            className={classNames(styles.header__burgerMenu)}
-            color="inverse"
-            onClick={() => {
-              setIsOpenMenu((prev) => !prev);
-            }}
-          />
+          <motion.div animate={{ rotate: isOpenMenu ? 90 : 0 }} transition={{ duration: 0.2 }}>
+            <BurgerIcon
+              className={classNames(styles.header__burgerMenu)}
+              color="inverse"
+              onClick={() => {
+                setIsOpenMenu((prev) => !prev);
+              }}
+            />
+          </motion.div>
         </div>
-        <div
-          className={classNames(styles.header__navigation, {
-            [styles.header__navigation_open]: isOpenMenu,
-          })}
-        >
-          <div className={styles.header__userMobile}>
-            {userProfileLink} <ThemeSwitcher />
-          </div>
 
+        {/* Desktop navigation */}
+        <nav className={styles.header__navigation}>
           <Link
             href="/"
             className={classNames('routLink', styles[`header__navigation-link`], {
               [styles.header__navigation_current]: currentPath('/'),
             })}
-            onClick={() => setIsOpenMenu(false)}
           >
             <Text view="p-m" color="inverse" weight="bold">
               Все схемы
             </Text>
           </Link>
-
           <Link
             href="/about"
             className={classNames('routLink', styles[`header__navigation-link`], {
               [styles.header__navigation_current]: currentPath('/about'),
             })}
-            onClick={() => setIsOpenMenu(false)}
           >
             <Text view="p-m" color="inverse" weight="bold">
               Обо мне
             </Text>
           </Link>
-        </div>
+        </nav>
+
+        {/* Mobile navigation overlay */}
+        <AnimatePresence>
+          {isOpenMenu && (
+            <motion.div
+              className={styles.header__navigationMobile}
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            >
+              <div className={styles.header__userMobile}>
+                {userProfileLink} <ThemeSwitcher />
+              </div>
+              <Link
+                href="/"
+                className={classNames('routLink', styles[`header__navigation-link`], {
+                  [styles.header__navigation_current]: currentPath('/'),
+                })}
+                onClick={() => setIsOpenMenu(false)}
+              >
+                <Text view="p-m" color="inverse" weight="bold">
+                  Все схемы
+                </Text>
+              </Link>
+              <Link
+                href="/about"
+                className={classNames('routLink', styles[`header__navigation-link`], {
+                  [styles.header__navigation_current]: currentPath('/about'),
+                })}
+                onClick={() => setIsOpenMenu(false)}
+              >
+                <Text view="p-m" color="inverse" weight="bold">
+                  Обо мне
+                </Text>
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <div className={styles.header__user}>
           <ThemeSwitcher />
           {userProfileLink}

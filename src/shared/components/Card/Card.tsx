@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { motion } from 'motion/react';
 import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 import React from 'react';
@@ -37,7 +38,15 @@ const Card: React.FC<CardProps> = ({
   actionSlot,
 }) => {
   return (
-    <div className={classNames(className, styles.card)} onClick={onClick}>
+    <motion.div
+      className={classNames(className, styles.card)}
+      onClick={onClick}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      whileHover={{ y: -4, boxShadow: '0px 8px 24px rgba(0,0,0,0.12)' }}
+      whileTap={{ scale: 0.98 }}
+    >
       <Image
         src={image}
         alt={'Фотография готового изделия'}
@@ -70,7 +79,7 @@ const Card: React.FC<CardProps> = ({
           {actionSlot}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

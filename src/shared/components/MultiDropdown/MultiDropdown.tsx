@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { AnimatePresence, motion } from 'motion/react';
 import React, { useEffect, useRef, useState } from 'react';
 
 import Input from '../Input';
@@ -6,6 +7,27 @@ import Text from '../Text';
 import ArrowDownIcon from '../icons/ArrowDownIcon';
 
 import styles from './MultiDropdown.module.scss';
+
+const listVariants = {
+  hidden: { opacity: 0, y: -8, scaleY: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scaleY: 1,
+    transition: { duration: 0.2, ease: 'easeOut' as const, staggerChildren: 0.04 },
+  },
+  exit: {
+    opacity: 0,
+    y: -8,
+    scaleY: 0.95,
+    transition: { duration: 0.2, ease: 'easeIn' as const },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -6 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.2 } },
+};
 
 export type Option = {
   /** Ключ варианта, используется для отправки на бек/использования в коде */
@@ -89,28 +111,38 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
         }
       />
 
-      {isOpen && !disabled && (
-        <ul className={classNames(styles.multiDropdown__optionsList)}>
-          {options
-            .filter((item) => item.value.toLowerCase().includes(searchQuery.toLowerCase()))
-            .map((item) => {
-              const isSelected = value.some((i) => i.key === item.key);
-              return (
-                <li
-                  className={classNames(styles.multiDropdown__option)}
-                  key={item.key}
-                  onClick={() => {
-                    handleSelectValue(item);
-                  }}
-                >
-                  <Text view="p-m" color={isSelected ? 'accent' : 'primary'}>
-                    {item.value}
-                  </Text>
-                </li>
-              );
-            })}
-        </ul>
-      )}
+      <AnimatePresence>
+        {isOpen && !disabled && (
+          <motion.ul
+            className={classNames(styles.multiDropdown__optionsList)}
+            variants={listVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            style={{ originY: 0 }}
+          >
+            {options
+              .filter((item) => item.value.toLowerCase().includes(searchQuery.toLowerCase()))
+              .map((item) => {
+                const isSelected = value.some((i) => i.key === item.key);
+                return (
+                  <motion.li
+                    className={classNames(styles.multiDropdown__option)}
+                    key={item.key}
+                    variants={itemVariants}
+                    onClick={() => {
+                      handleSelectValue(item);
+                    }}
+                  >
+                    <Text view="p-m" color={isSelected ? 'accent' : 'primary'}>
+                      {item.value}
+                    </Text>
+                  </motion.li>
+                );
+              })}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
