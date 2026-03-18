@@ -21,7 +21,7 @@ const UserProfile: React.FC = observer(() => {
   const router = useRouter();
 
   const handleCreatePattern = () => {
-    router.replace(ROUTES.CREATE_PATTERN);
+    router.push(ROUTES.CREATE_PATTERN);
     analyticsStore.sendEvent(AnalyticsEvent.clickCreatePattern, {
       userDocumentId: userStore.data.documentId,
       userName: userStore.data.username,

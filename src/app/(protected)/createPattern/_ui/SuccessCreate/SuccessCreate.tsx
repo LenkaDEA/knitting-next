@@ -29,7 +29,7 @@ const SuccessCreate: React.FC = () => {
       </Text>
       <div className={styles.successCreate__actions}>
         <Button onClick={() => router.refresh()}>Создать еще урок</Button>
-        <Button onClick={() => router.replace(ROUTES.HOME)}>На главную</Button>
+        <Button onClick={() => router.push(ROUTES.HOME)}>На главную</Button>
       </div>
     </div>
   );
