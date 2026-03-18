@@ -28,15 +28,28 @@ export default function RootLayout({
       <body>
         <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange>
           <NuqsAdapter>
-            <Header />
-            <Container tag={'main'} className={styles.App__main}>
-              <RootProvider>{children}</RootProvider>
-            </Container>
+            <RootProvider>
+              <Header />
+              <Container tag={'main'} className={styles.App__main}>
+                {children}
+              </Container>
+              <Suspense fallback={null}>
+                <YandexMetrika />
+              </Suspense>
+            </RootProvider>
           </NuqsAdapter>
         </ThemeProvider>
-        <Suspense fallback={null}>
-          <YandexMetrika />
-        </Suspense>
+        <noscript>
+          <div>
+            {/* eslint-disable-next-line @next/next/no-img-element
+             */}
+            <img
+              src={`https://mc.yandex.ru/watch/${process.env.NEXT_PUBLIC_YM_ID}`}
+              style={{ position: 'absolute', left: '-9999px' }}
+              alt=""
+            />
+          </div>
+        </noscript>
       </body>
     </html>
   );
