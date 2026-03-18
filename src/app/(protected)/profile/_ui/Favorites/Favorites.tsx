@@ -10,6 +10,8 @@ import Text from '@/components/Text';
 import defaultPattern from '@/public/default.jpg';
 import ToolDisplay from '@/shared/components/ToolDisplay';
 import { getPatternUrl, ROUTES } from '@/shared/config/routes';
+import { useRootStore } from '@/shared/stores/context/RootContext';
+import { AnalyticsEvent } from '@/shared/stores/models/analytics';
 import type { PatternModel } from '@/stores/models/patterns';
 
 import styles from './Favorites.module.scss';
@@ -20,6 +22,7 @@ export type FavoritesProps = {
 
 const Favorites: React.FC<FavoritesProps> = ({ patterns = [] }) => {
   const router = useRouter();
+  const { analyticsStore } = useRootStore();
   return (
     <div className={styles.favorites}>
       <Text view="title" color="accent" weight="medium">
@@ -43,6 +46,12 @@ const Favorites: React.FC<FavoritesProps> = ({ patterns = [] }) => {
                 title={pattern.title}
                 subtitle={pattern.shortDescription}
                 actionSlot={<ToolDisplay tool={pattern.tool} />}
+                onClick={() => {
+                  analyticsStore.sendEvent(AnalyticsEvent.clickCardFavorites, {
+                    cardDocumentId: pattern.documentId,
+                    cardTitle: pattern.title,
+                  });
+                }}
               />
             </Link>
           ))}

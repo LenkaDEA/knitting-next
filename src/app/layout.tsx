@@ -4,8 +4,10 @@ import '@/stores/setup';
 import type { Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { Suspense } from 'react';
 
 import Header from '@/app/_ui/Header';
+import YandexMetrika from '@/shared/components/YandexMetrika/YandexMetrika';
 import { RootProvider } from '@/shared/stores/context/RootContext';
 
 import Container from './_ui/Container';
@@ -32,6 +34,9 @@ export default function RootLayout({
             </Container>
           </NuqsAdapter>
         </ThemeProvider>
+        <Suspense fallback={null}>
+          <YandexMetrika />
+        </Suspense>
       </body>
     </html>
   );
