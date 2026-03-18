@@ -1,3 +1,4 @@
+import imageCompression from 'browser-image-compression';
 import { action, computed, makeObservable, observable, runInAction, toJS } from 'mobx';
 
 import { Meta, TOOLS, type MetaType } from '@/config/meta';
@@ -85,9 +86,23 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
       const { cover, ...restData } = toJS(this._data);
       const formData = new FormData();
       formData.append('data', JSON.stringify(restData));
+
       if (cover) {
-        const fileName = cover.name || 'cover.jpeg';
-        formData.append('files.cover', cover, fileName);
+        try {
+          const options = {
+            maxSizeMB: 0.3,
+            maxWidthOrHeight: 1200,
+            useWebWorker: true,
+            initialQuality: 0.8,
+          };
+
+          const compressedFile = await imageCompression(cover, options);
+
+          const fileName = cover.name || 'cover.jpeg';
+          formData.append('files.cover', compressedFile, fileName);
+        } catch {
+          formData.append('files.cover', cover);
+        }
       }
 
       const response = await this._apiStore.request<StrapiResponse<CreatePatternApi>>({

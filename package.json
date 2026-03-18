@@ -10,6 +10,7 @@
     "lint:fix": "eslint \"./src/**/*.{js,jsx,ts,tsx}\" --fix"
   },
   "dependencies": {
+    "browser-image-compression": "^2.0.2",
     "classnames": "^2.5.1",
     "debounce": "^3.0.0",
     "html-react-parser": "^5.2.17",
