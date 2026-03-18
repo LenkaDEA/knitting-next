@@ -86,7 +86,8 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
       const formData = new FormData();
       formData.append('data', JSON.stringify(restData));
       if (cover) {
-        formData.append('files.cover', cover);
+        const fileName = cover.name || 'cover.jpeg';
+        formData.append('files.cover', cover, fileName);
       }
 
       const response = await this._apiStore.request<StrapiResponse<CreatePatternApi>>({
