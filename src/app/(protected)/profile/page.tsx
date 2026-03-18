@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import Button from '@/components/Button';
 import Text from '@/components/Text';
 import defaultUser from '@/public/defaultUser.png';
+import { ROUTES } from '@/shared/config/routes';
 import { useRootStore } from '@/stores/context/RootContext';
 
 import Favorites from './_ui/Favorites';
@@ -45,7 +46,7 @@ const UserProfile: React.FC = observer(() => {
           </div>
 
           <div className={styles.profile__actions}>
-            <Button onClick={() => router.replace('/createPattern')}>Создать урок</Button>
+            <Button onClick={() => router.replace(ROUTES.CREATE_PATTERN)}>Создать урок</Button>
             <Button
               onClick={() => {
                 userStore.logout();

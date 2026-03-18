@@ -1,4 +1,6 @@
 import classNames from 'classnames';
+import type { HTMLMotionProps } from 'motion/react';
+import { motion } from 'motion/react';
 import React from 'react';
 
 import Loader from '../Loader';
@@ -6,7 +8,7 @@ import Text from '../Text';
 
 import styles from './Button.module.scss';
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = HTMLMotionProps<'button'> & {
   /** Состояние загрузки */
   loading?: boolean;
   /** Текст кнопки */
@@ -23,9 +25,10 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const isDisabledByLoading = loading && !disabled;
+  const isInactive = disabled || loading;
 
   return (
-    <button
+    <motion.button
       {...props}
       className={classNames(
         className,
@@ -33,6 +36,9 @@ const Button: React.FC<ButtonProps> = ({
         isDisabledByLoading && styles['button__disabled-by-loading']
       )}
       disabled={disabled || loading}
+      whileHover={!isInactive ? { scale: 1.02 } : undefined}
+      whileTap={!isInactive ? { scale: 0.95 } : undefined}
+      transition={{ type: 'spring', stiffness: 400, damping: 20 }}
     >
       {loading && (
         <div className={styles.button__loaderWrapper}>
@@ -42,7 +48,7 @@ const Button: React.FC<ButtonProps> = ({
       <span className={classNames(styles.button__text, loading && styles.button__text_hidden)}>
         <Text view="button">{children}</Text>
       </span>
-    </button>
+    </motion.button>
   );
 };
 

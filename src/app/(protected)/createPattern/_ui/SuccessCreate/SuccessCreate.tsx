@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import imgCat from '@/public/happyCat.png';
 import Button from '@/shared/components/Button';
 import Text from '@/shared/components/Text';
+import { ROUTES } from '@/shared/config/routes';
 
 import styles from './SuccessCreate.module.scss';
 
@@ -22,7 +23,7 @@ const SuccessCreate: React.FC = () => {
       </Text>
       <div className={styles.successCreate__actions}>
         <Button onClick={() => router.refresh()}>Создать еще урок</Button>
-        <Button onClick={() => router.replace('/')}>На главную</Button>
+        <Button onClick={() => router.replace(ROUTES.HOME)}>На главную</Button>
       </div>
     </div>
   );

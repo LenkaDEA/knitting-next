@@ -6,7 +6,7 @@ import { HTTPMethod, type IApiStore } from '@/stores/global/ApiStore';
 import type { ILocalStore } from '@/stores/interfaces';
 import type { StrapiResponse } from '@/stores/models/StrapiResponse';
 import { normalizePatternFull } from '@/stores/models/patterns';
-import type { PatternFullModel, PatternModel } from '@/stores/models/patterns';
+import type { PatternFullApi, PatternFullModel, PatternModel } from '@/stores/models/patterns';
 
 import type { GetPatternDetailsParams, IPatternDetailsStore } from '.';
 
@@ -77,7 +77,7 @@ class PatternDetailsStore implements IPatternDetailsStore, ILocalStore {
         this._meta = Meta.loading;
       });
 
-      const response = await this._apiStore.request<StrapiResponse<PatternFullModel>>({
+      const response = await this._apiStore.request<StrapiResponse<PatternFullApi>>({
         method: HTTPMethod.GET,
         data: {
           populate: ['cover', 'author'],

@@ -12,10 +12,12 @@ import Text from '@/components/Text';
 import UserIcon from '@/components/icons/UserIcon';
 import logo from '@/public/Logo-white.svg';
 import BurgerIcon from '@/shared/components/icons/BurgerIcon';
+import { ROUTES } from '@/shared/config/routes';
 
 import ThemeSwitcher from '../ThemeSwitcher';
 
 import styles from './Header.module.scss';
+import { NAVIGATION_LINKS } from './config';
 
 const Header: React.FC = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -37,7 +39,7 @@ const Header: React.FC = () => {
 
   const userProfileLink = (
     <motion.span whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.85 }}>
-      <Link className="routLink" href={'/profile'} onClick={() => setIsOpenMenu(false)}>
+      <Link className="routLink" href={ROUTES.PROFILE} onClick={() => setIsOpenMenu(false)}>
         <UserIcon color="inverse" />
       </Link>
     </motion.span>
@@ -47,7 +49,7 @@ const Header: React.FC = () => {
     <header className={styles.header} ref={rootRef}>
       <Container className={styles.header__body}>
         <div className={styles.header__logo}>
-          <Link href={'/'} className={classNames('routLink', styles['header__logo-link'])}>
+          <Link href={ROUTES.HOME} className={classNames('routLink', styles['header__logo-link'])}>
             <Image src={logo} alt={'Логотип сайта'} width={36} height={36} />
             <Text view="p-xl" weight="bold" color="inverse">
               Knitting
@@ -68,26 +70,19 @@ const Header: React.FC = () => {
 
         {/* Desktop navigation */}
         <nav className={styles.header__navigation}>
-          <Link
-            href="/"
-            className={classNames('routLink', styles[`header__navigation-link`], {
-              [styles.header__navigation_current]: currentPath('/'),
-            })}
-          >
-            <Text view="p-m" color="inverse" weight="bold">
-              Все схемы
-            </Text>
-          </Link>
-          <Link
-            href="/about"
-            className={classNames('routLink', styles[`header__navigation-link`], {
-              [styles.header__navigation_current]: currentPath('/about'),
-            })}
-          >
-            <Text view="p-m" color="inverse" weight="bold">
-              Обо мне
-            </Text>
-          </Link>
+          {NAVIGATION_LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={classNames('routLink', styles[`header__navigation-link`], {
+                [styles.header__navigation_current]: currentPath(href),
+              })}
+            >
+              <Text view="p-m" color="inverse" weight="bold">
+                {label}
+              </Text>
+            </Link>
+          ))}
         </nav>
 
         {/* Mobile navigation overlay */}
@@ -103,28 +98,23 @@ const Header: React.FC = () => {
               <div className={styles.header__userMobile}>
                 {userProfileLink} <ThemeSwitcher />
               </div>
-              <Link
-                href="/"
-                className={classNames('routLink', styles[`header__navigation-link`], {
-                  [styles.header__navigation_current]: currentPath('/'),
-                })}
-                onClick={() => setIsOpenMenu(false)}
-              >
-                <Text view="p-m" color="inverse" weight="bold">
-                  Все схемы
-                </Text>
-              </Link>
-              <Link
-                href="/about"
-                className={classNames('routLink', styles[`header__navigation-link`], {
-                  [styles.header__navigation_current]: currentPath('/about'),
-                })}
-                onClick={() => setIsOpenMenu(false)}
-              >
-                <Text view="p-m" color="inverse" weight="bold">
-                  Обо мне
-                </Text>
-              </Link>
+
+              <nav>
+                {NAVIGATION_LINKS.map(({ href, label }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={classNames('routLink', styles[`header__navigation-link`], {
+                      [styles.header__navigation_current]: currentPath(href),
+                    })}
+                    onClick={() => setIsOpenMenu(false)}
+                  >
+                    <Text view="p-m" color="inverse" weight="bold">
+                      {label}
+                    </Text>
+                  </Link>
+                ))}
+              </nav>
             </motion.div>
           )}
         </AnimatePresence>

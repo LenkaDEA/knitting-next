@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import imgTangle from '@/public/Error-tangle.png';
 import Button from '@/shared/components/Button';
 import Text from '@/shared/components/Text';
+import { ROUTES } from '@/shared/config/routes';
 
 import styles from './not-found.module.scss';
 
@@ -17,7 +18,7 @@ const Error: React.FC<ErrorProps> = ({ reset }) => {
   const router = useRouter();
 
   const handleGoHome = () => {
-    router.replace('/');
+    router.replace(ROUTES.HOME);
   };
 
   return (

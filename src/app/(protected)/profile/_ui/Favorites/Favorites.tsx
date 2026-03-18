@@ -9,6 +9,7 @@ import EmptyStub from '@/components/EmptyStub';
 import Text from '@/components/Text';
 import defaultPattern from '@/public/default.jpg';
 import ToolDisplay from '@/shared/components/ToolDisplay';
+import { getPatternUrl, ROUTES } from '@/shared/config/routes';
 import type { PatternModel } from '@/stores/models/patterns';
 
 import styles from './Favorites.module.scss';
@@ -18,7 +19,7 @@ export type FavoritesProps = {
 };
 
 const Favorites: React.FC<FavoritesProps> = ({ patterns = [] }) => {
-  const route = useRouter();
+  const router = useRouter();
   return (
     <div className={styles.favorites}>
       <Text view="title" color="accent" weight="medium">
@@ -27,14 +28,14 @@ const Favorites: React.FC<FavoritesProps> = ({ patterns = [] }) => {
       {!patterns.length ? (
         <EmptyStub
           text="У вас пока нет любимых уроков"
-          action={<Button onClick={() => route.push('/')}>Найти любимые уроки</Button>}
+          action={<Button onClick={() => router.push(ROUTES.HOME)}>Найти любимые уроки</Button>}
         />
       ) : (
         <div className={styles.favorites__container}>
           {patterns.map((pattern) => (
             <Link
               className="routLink"
-              href={`/patterns/${pattern.documentId}`}
+              href={getPatternUrl(pattern.documentId)}
               key={pattern.documentId}
             >
               <Card

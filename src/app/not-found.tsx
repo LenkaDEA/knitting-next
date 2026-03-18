@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/Button';
 import Text from '@/components/Text';
 import imgCat from '@/public/NotFound-cat.png';
+import { ROUTES } from '@/shared/config/routes';
 
 import styles from './not-found.module.scss';
 
@@ -13,7 +14,7 @@ const NotFound: React.FC = () => {
   const router = useRouter();
 
   const handleGoHome = () => {
-    router.replace('/');
+    router.replace(ROUTES.HOME);
   };
 
   return (

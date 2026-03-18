@@ -10,6 +10,7 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Text from '@/components/Text';
 import { Meta } from '@/config/meta';
+import { ROUTES } from '@/shared/config/routes';
 import { useRootStore } from '@/stores/context/RootContext';
 
 import styles from './layout.module.scss';
@@ -34,7 +35,7 @@ const RegisterForm: React.FC = observer(() => {
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const isLogin = await userStore.getRegistration({ userName, email, password });
-    if (isLogin) router.push('/profile');
+    if (isLogin) router.push(ROUTES.PROFILE);
   };
 
   return (
@@ -80,7 +81,7 @@ const RegisterForm: React.FC = observer(() => {
           Создать аккаунт
         </Button>
       </form>
-      <Link href="/login">У меня уже есть аккаунт</Link>
+      <Link href={ROUTES.LOGIN}>У меня уже есть аккаунт</Link>
     </div>
   );
 });

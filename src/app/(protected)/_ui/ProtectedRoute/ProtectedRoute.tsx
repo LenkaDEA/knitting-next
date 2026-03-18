@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, type ReactNode } from 'react';
 
 import PageLoader from '@/components/PageLoader';
+import { ROUTES } from '@/shared/config/routes';
 import { useRootStore } from '@/stores/context/RootContext';
 
 const ProtectedRoute: React.FC<{ children: ReactNode }> = observer(({ children }) => {
@@ -14,7 +15,7 @@ const ProtectedRoute: React.FC<{ children: ReactNode }> = observer(({ children }
 
   useEffect(() => {
     if (userStore.checkedAuth && !userStore.isAuth) {
-      router.replace(`/login?from=${encodeURIComponent(pathname)}`);
+      router.replace(`${ROUTES.LOGIN}?from=${encodeURIComponent(pathname)}`);
     }
   }, [userStore.checkedAuth, userStore.isAuth, router, pathname]);
 
