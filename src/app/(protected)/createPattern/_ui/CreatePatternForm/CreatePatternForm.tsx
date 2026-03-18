@@ -33,7 +33,13 @@ const initialState: CreatePatternModel = {
   videoUrl: '',
 };
 
-type ErrorType = 'empty_data' | 'bad_request' | null;
+type ErrorType = 'empty_data' | 'bad_request' | 'big_size_file' | null;
+
+const ErrorValues = {
+  empty_data: 'Пожалуйста, заполните все обязательные поля',
+  bad_request: 'Ошибка сохранения: данные не уникальны или сервер недоступен',
+  big_size_file: 'Размер файла слишком большой (макс. 15 МБ)',
+};
 
 const TOOL_OPTIONS = Object.values(TOOLS).map((item) => ({
   key: item.key,
@@ -96,6 +102,7 @@ const CreatePatternForm: React.FC = observer(() => {
     createPatternStore.resetMeta();
     dispatch({ type: 'set_field', field, payload: value });
     setIsLoading(false);
+    setErrorType(null);
   };
 
   const handlePostPattern = async (e: SubmitEvent<HTMLFormElement>) => {
@@ -236,11 +243,7 @@ const CreatePatternForm: React.FC = observer(() => {
 
         <div className={styles.createPattern__actions}>
           {errorType && (
-            <Text color="error">
-              {errorType === 'empty_data'
-                ? 'Пожалуйста, заполните все обязательные поля'
-                : 'Ошибка сохранения: данные не уникальны или сервер недоступен'}
-            </Text>
+            <Text color="error">{ErrorValues[errorType] || 'Произошла неизвестная ошибка'}</Text>
           )}
           <Button type="submit" loading={isLoading}>
             Создать

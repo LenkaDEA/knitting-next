@@ -68,7 +68,7 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
     return title.trim() !== '' && shortDescription.trim() !== '' && description.trim() !== '';
   }
 
-  async postCreatePattern(): Promise<'success' | 'empty_data' | 'bad_request'> {
+  async postCreatePattern(): Promise<'success' | 'empty_data' | 'bad_request' | 'big_size_file'> {
     if (!this.checkIsValid()) {
       runInAction(() => {
         this._meta = Meta.error;
@@ -88,20 +88,31 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
       formData.append('data', JSON.stringify(restData));
 
       if (cover) {
-        try {
-          const options = {
-            maxSizeMB: 0.3,
-            maxWidthOrHeight: 1200,
-            useWebWorker: true,
-            initialQuality: 0.8,
-          };
+        const FILE_SIZE_LIMIT = 15 * 1024 * 1024;
+        const MIN_SIZE_FOR_COMPRESSION = 200 * 1024;
 
-          const compressedFile = await imageCompression(cover, options);
+        if (cover.size > FILE_SIZE_LIMIT) {
+          return 'big_size_file';
+        }
 
-          const fileName = cover.name || 'cover.jpeg';
-          formData.append('files.cover', compressedFile, fileName);
-        } catch {
-          formData.append('files.cover', cover);
+        if (cover.size < MIN_SIZE_FOR_COMPRESSION) {
+          formData.append('files.cover', cover, cover.name || 'cover.jpeg');
+        } else {
+          try {
+            const options = {
+              maxSizeMB: 0.3,
+              maxWidthOrHeight: 1200,
+              useWebWorker: true,
+              initialQuality: 0.8,
+            };
+
+            const compressedFile = await imageCompression(cover, options);
+
+            const fileName = cover.name || 'cover.jpeg';
+            formData.append('files.cover', compressedFile, fileName);
+          } catch {
+            formData.append('files.cover', cover);
+          }
         }
       }
 
