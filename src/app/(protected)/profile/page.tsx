@@ -9,19 +9,37 @@ import Button from '@/components/Button';
 import Text from '@/components/Text';
 import defaultUser from '@/public/defaultUser.png';
 import { ROUTES } from '@/shared/config/routes';
+import { AnalyticsEvent } from '@/shared/stores/models/analytics';
 import { useRootStore } from '@/stores/context/RootContext';
 
 import Favorites from './_ui/Favorites';
 import styles from './page.module.scss';
 
 const UserProfile: React.FC = observer(() => {
-  const { userStore } = useRootStore();
+  const { userStore, analyticsStore } = useRootStore();
 
   const router = useRouter();
+
+  const handleCreatePattern = () => {
+    router.replace(ROUTES.CREATE_PATTERN);
+    analyticsStore.sendEvent(AnalyticsEvent.clickCreatePattern, {
+      userDocumentId: userStore.data.documentId,
+      userName: userStore.data.username,
+    });
+  };
+
+  const handleLogout = () => {
+    analyticsStore.sendEvent(AnalyticsEvent.clickLogout, {
+      userDocumentId: userStore.data.documentId,
+      userName: userStore.data.username,
+    });
+    userStore.logout();
+  };
 
   useEffect(() => {
     userStore.checkAuth();
   }, [userStore]);
+
   return (
     <div className={styles.profile}>
       <div className={styles.profile__body}>
@@ -46,14 +64,8 @@ const UserProfile: React.FC = observer(() => {
           </div>
 
           <div className={styles.profile__actions}>
-            <Button onClick={() => router.replace(ROUTES.CREATE_PATTERN)}>Создать урок</Button>
-            <Button
-              onClick={() => {
-                userStore.logout();
-              }}
-            >
-              Выйти
-            </Button>
+            <Button onClick={handleCreatePattern}>Создать урок</Button>
+            <Button onClick={handleLogout}>Выйти</Button>
           </div>
         </div>
       </div>

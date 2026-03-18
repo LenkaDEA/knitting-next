@@ -11,6 +11,7 @@ import Input from '@/components/Input';
 import Text from '@/components/Text';
 import { Meta } from '@/config/meta';
 import { ROUTES } from '@/shared/config/routes';
+import { AnalyticsEvent } from '@/shared/stores/models/analytics';
 import { useRootStore } from '@/stores/context/RootContext';
 
 import styles from './page.module.scss';
@@ -18,7 +19,7 @@ import styles from './page.module.scss';
 const LoginForm: React.FC = observer(() => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { userStore } = useRootStore();
+  const { userStore, analyticsStore } = useRootStore();
   const router = useRouter();
 
   const handleChangeEmail = (value: string) => {
@@ -66,7 +67,16 @@ const LoginForm: React.FC = observer(() => {
         </Button>
       </form>
 
-      <Link href={ROUTES.SING_UP}>Зарегистрироваться</Link>
+      <Link
+        href={ROUTES.SING_UP}
+        onClick={() => {
+          analyticsStore.sendEvent(AnalyticsEvent.clickSignUp, {
+            fromLocation: 'login',
+          });
+        }}
+      >
+        Зарегистрироваться
+      </Link>
     </div>
   );
 });

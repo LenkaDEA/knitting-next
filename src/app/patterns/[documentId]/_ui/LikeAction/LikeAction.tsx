@@ -6,13 +6,14 @@ import { useAnimate } from 'motion/react';
 
 import LikeIcon from '@/shared/components/icons/LikeIcon';
 import { useRootStore } from '@/shared/stores/context/RootContext';
+import { AnalyticsEvent } from '@/shared/stores/models/analytics';
 
 import { usePatternDetails } from '../../_model/PatternDetailsContext';
 
 import styles from './LikeAction.module.scss';
 
 const LikeAction: React.FC<{ documentId: string }> = observer(({ documentId }) => {
-  const { userStore } = useRootStore();
+  const { userStore, analyticsStore } = useRootStore();
   const patternDetailsStore = usePatternDetails();
   const isFavorite = userStore.isFavorite(documentId || '');
   const [scope, animate] = useAnimate();
@@ -28,6 +29,10 @@ const LikeAction: React.FC<{ documentId: string }> = observer(({ documentId }) =
       animate(scope.current, { scale: [1, 0.75, 1] }, { duration: 0.3, ease: 'easeOut' });
     }
     userStore.likePattern({ pattern: patternDetailsStore.shortData });
+    analyticsStore.sendEvent(AnalyticsEvent.clickLike, {
+      cardDocumentId: documentId,
+      isFavorite: !isFavorite,
+    });
   };
 
   return (

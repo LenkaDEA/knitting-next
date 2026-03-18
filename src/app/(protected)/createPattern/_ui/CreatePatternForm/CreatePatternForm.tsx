@@ -12,6 +12,8 @@ import MultiDropdown from '@/shared/components/MultiDropdown';
 import Text from '@/shared/components/Text';
 import type { ToolValue } from '@/shared/config/meta';
 import { Meta, TOOLS } from '@/shared/config/meta';
+import { useRootStore } from '@/shared/stores/context/RootContext';
+import { AnalyticsEvent } from '@/shared/stores/models/analytics';
 import type { CategoriesModel } from '@/shared/stores/models/categories';
 import type { CreatePatternModel } from '@/shared/stores/models/patterns/patternCreate';
 
@@ -30,6 +32,8 @@ const initialState: CreatePatternModel = {
   tool: TOOLS.hook.key,
   videoUrl: '',
 };
+
+type ErrorType = 'empty_data' | 'bad_request' | null;
 
 const TOOL_OPTIONS = Object.values(TOOLS).map((item) => ({
   key: item.key,
@@ -55,10 +59,12 @@ function reducerPattern(state: CreatePatternModel, action: Action): CreatePatter
 }
 
 const CreatePatternForm: React.FC = observer(() => {
+  const { userStore, analyticsStore } = useRootStore();
   const createPatternStore = useCreatePattern();
   const categories = useCategoriesStore();
   const [state, dispatch] = useReducer(reducerPattern, initialState);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorType, setErrorType] = useState<ErrorType>(null);
 
   const optionsCategories: Option[] = categories.data.map((item) => ({
     key: item.slug,
@@ -97,7 +103,14 @@ const CreatePatternForm: React.FC = observer(() => {
     setIsLoading(true);
     createPatternStore.updateData(state);
     try {
-      await createPatternStore.postCreatePattern();
+      const resultStatus = await createPatternStore.postCreatePattern();
+
+      if (resultStatus !== 'success') {
+        setErrorType(resultStatus);
+        analyticsStore.sendEvent(AnalyticsEvent.errorSavePattern, {
+          errorType: resultStatus,
+        });
+      }
     } finally {
       if (createPatternStore.meta === Meta.error) {
         setIsLoading(false);
@@ -112,7 +125,14 @@ const CreatePatternForm: React.FC = observer(() => {
     },
   ];
 
-  if (createPatternStore.meta === Meta.success) return <SuccessCreate />;
+  if (createPatternStore.meta === Meta.success) {
+    analyticsStore.sendEvent(AnalyticsEvent.clickSavePattern, {
+      userDocumentId: userStore.data.documentId,
+      userName: userStore.data.username,
+      tool: state.tool,
+    });
+    return <SuccessCreate />;
+  }
 
   return (
     <div className={styles.createPattern}>
@@ -215,8 +235,12 @@ const CreatePatternForm: React.FC = observer(() => {
         </div>
 
         <div className={styles.createPattern__actions}>
-          {createPatternStore.meta === Meta.error && (
-            <Text color="error">Данные не заполнены или не уникальны</Text>
+          {errorType && (
+            <Text color="error">
+              {errorType === 'empty_data'
+                ? 'Пожалуйста, заполните все обязательные поля'
+                : 'Ошибка сохранения: данные не уникальны или сервер недоступен'}
+            </Text>
           )}
           <Button type="submit" loading={isLoading}>
             Создать

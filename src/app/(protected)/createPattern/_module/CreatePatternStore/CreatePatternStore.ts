@@ -67,12 +67,12 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
     return title.trim() !== '' && shortDescription.trim() !== '' && description.trim() !== '';
   }
 
-  async postCreatePattern(): Promise<void> {
+  async postCreatePattern(): Promise<'success' | 'empty_data' | 'bad_request'> {
     if (!this.checkIsValid()) {
       runInAction(() => {
         this._meta = Meta.error;
       });
-      return;
+      return 'empty_data';
     }
 
     const token = authService.getToken();
@@ -96,17 +96,20 @@ class CreatePatternStore implements ICreatePatternStore, ILocalStore {
         endpoint: `${PATTERNS_ENDPOINT}`,
       });
 
-      runInAction(() => {
+      return runInAction(() => {
         if (response.success) {
           this._meta = Meta.success;
+          return 'success';
         } else {
           this._meta = Meta.error;
+          return 'bad_request';
         }
       });
     } catch {
       runInAction(() => {
         this._meta = Meta.error;
       });
+      return 'bad_request';
     }
   }
 
