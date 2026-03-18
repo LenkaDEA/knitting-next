@@ -17,7 +17,13 @@ const EmptyStub: React.FC<EmptyStubProps> = ({ text, action }) => {
       <Text view="p-xl" color="accent" weight="bold">
         {text}
       </Text>
-      <Image className={styles.emptyStub__img} src={emptyStub} alt={'Котик у пустой корзины'} />
+      <Image
+        className={styles.emptyStub__img}
+        src={emptyStub}
+        alt={'Котик у пустой корзины'}
+        width={400}
+        height={400}
+      />
 
       {action}
     </div>

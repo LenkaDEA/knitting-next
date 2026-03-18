@@ -59,8 +59,9 @@ const PatternDetails: React.FC<{ params: Promise<{ documentId: string }> }> = as
         <Image
           src={data.cover?.url || defaultImg}
           className={styles.patternDetails__cover}
-          width={300}
-          height={300}
+          loading="eager"
+          width={400}
+          height={400}
           alt="Фотография изделия"
         />
         <div className={styles.patternDetails__content}>

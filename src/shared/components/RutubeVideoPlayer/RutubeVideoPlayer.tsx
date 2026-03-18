@@ -13,7 +13,13 @@ const RutubeVideoPlayer: React.FC<RutubeVideoPlayerType> = ({ url }) => {
   if (!url)
     return (
       <div className={styles.video__empty}>
-        <Image className={styles.video__img} src={imgCat} alt="Грустный котик" />
+        <Image
+          className={styles.video__img}
+          src={imgCat}
+          alt="Грустный котик"
+          width={400}
+          height={400}
+        />
         <Text view="p-xl" color="accent" weight="medium">
           К сожалению, у урока нет видео
         </Text>

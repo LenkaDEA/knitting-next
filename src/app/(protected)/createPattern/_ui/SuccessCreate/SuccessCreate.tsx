@@ -17,7 +17,13 @@ const SuccessCreate: React.FC = () => {
       <Text color="accent" view="title" weight="bold">
         Урок успешно создан
       </Text>
-      <Image className={styles.successCreate__img} src={imgCat} alt="Счастливый котик" />
+      <Image
+        className={styles.successCreate__img}
+        src={imgCat}
+        alt="Счастливый котик"
+        width={400}
+        height={400}
+      />
       <Text color="secondary" view="p-m">
         Урок появится на платформе в течение одной минуты. Спасибо за Ваш вклад!
       </Text>

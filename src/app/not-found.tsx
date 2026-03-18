@@ -25,7 +25,14 @@ const NotFound: React.FC = () => {
       <Text view="title" weight="bold" color="accent">
         Страница не найдена
       </Text>
-      <Image className={styles.notFound__img} src={imgCat} alt="Грустный котик" />
+      <Image
+        className={styles.notFound__img}
+        src={imgCat}
+        alt="Грустный котик"
+        loading="eager"
+        width={400}
+        height={400}
+      />
       <Text view="p-l" weight="medium" color="accent">
         Эта страница распустилась. Но не переживайте, мы уже беремся за спицы!
       </Text>
