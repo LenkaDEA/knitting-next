@@ -28,9 +28,18 @@ const UserProfile: React.FC = observer(() => {
     });
   };
 
+  const handleLogout = () => {
+    analyticsStore.sendEvent(AnalyticsEvent.clickLogout, {
+      userDocumentId: userStore.data.documentId,
+      userName: userStore.data.username,
+    });
+    userStore.logout();
+  };
+
   useEffect(() => {
     userStore.checkAuth();
   }, [userStore]);
+
   return (
     <div className={styles.profile}>
       <div className={styles.profile__body}>
@@ -56,13 +65,7 @@ const UserProfile: React.FC = observer(() => {
 
           <div className={styles.profile__actions}>
             <Button onClick={handleCreatePattern}>Создать урок</Button>
-            <Button
-              onClick={() => {
-                userStore.logout();
-              }}
-            >
-              Выйти
-            </Button>
+            <Button onClick={handleLogout}>Выйти</Button>
           </div>
         </div>
       </div>

@@ -107,7 +107,7 @@ const CreatePatternForm: React.FC = observer(() => {
 
       if (resultStatus !== 'success') {
         setErrorType(resultStatus);
-        analyticsStore.sendEvent(AnalyticsEvent.clickErrorSavePattern, {
+        analyticsStore.sendEvent(AnalyticsEvent.errorSavePattern, {
           errorType: resultStatus,
         });
       }

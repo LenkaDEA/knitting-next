@@ -5,7 +5,10 @@ export enum AnalyticsEvent {
   clickLike = 'click_like',
   clickCreatePattern = 'click_create_pattern',
   clickSavePattern = 'click_save_pattern',
-  clickErrorSavePattern = 'click_error_save_pattern',
+  errorSavePattern = 'error_save_pattern',
+  clickSignUp = 'click_signup',
+  registrationSuccess = 'registration_success',
+  clickLogout = 'click_logout',
 }
 
 export type MapAnalyticsEventToPayload = {
@@ -31,8 +34,21 @@ export type MapAnalyticsEventToPayload = {
     tool: ToolValue;
   };
 
-  [AnalyticsEvent.clickErrorSavePattern]: {
+  [AnalyticsEvent.errorSavePattern]: {
     errorType: string;
+  };
+
+  [AnalyticsEvent.clickSignUp]: {
+    fromLocation: 'login';
+  };
+
+  [AnalyticsEvent.registrationSuccess]: {
+    userDocumentId: string;
+  };
+
+  [AnalyticsEvent.clickLogout]: {
+    userDocumentId: string;
+    userName: string;
   };
 };
 
