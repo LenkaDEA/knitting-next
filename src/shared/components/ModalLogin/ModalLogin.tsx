@@ -1,3 +1,4 @@
+import { motion } from 'motion/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -28,7 +29,17 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ text, description }) => {
   };
 
   return (
-    <div className={styles.modalLogin}>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95, y: 10 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{
+        type: 'spring',
+        stiffness: 300,
+        damping: 30,
+        mass: 0.8,
+      }}
+      className={styles.modalLogin}
+    >
       <Text view="p-l" weight="bold">
         {text}
       </Text>
@@ -37,7 +48,7 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ text, description }) => {
       <Link href={ROUTES.SING_UP} onClick={handleClickSignUp}>
         Зарегистрироваться
       </Link>
-    </div>
+    </motion.div>
   );
 };
 export default ModalLogin;
