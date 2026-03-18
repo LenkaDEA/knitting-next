@@ -1,23 +1,38 @@
+import type { ToolValue } from '@/shared/config/meta';
+
 export enum AnalyticsEvent {
-  clickCardHome = 'click_card_home',
-  clickCardFavorites = 'click_card_favorites',
+  clickCard = 'click_card',
   clickLike = 'click_like',
+  clickCreatePattern = 'click_create_pattern',
+  clickSavePattern = 'click_save_pattern',
+  clickErrorSavePattern = 'click_error_save_pattern',
 }
 
 export type MapAnalyticsEventToPayload = {
-  [AnalyticsEvent.clickCardHome]: {
+  [AnalyticsEvent.clickCard]: {
     cardDocumentId: string;
     cardTitle: string;
-  };
-
-  [AnalyticsEvent.clickCardFavorites]: {
-    cardDocumentId: string;
-    cardTitle: string;
+    location: 'home' | 'favorites';
   };
 
   [AnalyticsEvent.clickLike]: {
-    cardId: string;
+    cardDocumentId: string;
     isFavorite: boolean;
+  };
+
+  [AnalyticsEvent.clickCreatePattern]: {
+    userDocumentId: string;
+    userName: string;
+  };
+
+  [AnalyticsEvent.clickSavePattern]: {
+    userDocumentId: string;
+    userName: string;
+    tool: ToolValue;
+  };
+
+  [AnalyticsEvent.clickErrorSavePattern]: {
+    errorType: string;
   };
 };
 

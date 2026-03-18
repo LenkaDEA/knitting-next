@@ -30,9 +30,10 @@ const Patterns: React.FC = observer(() => {
           href={getPatternUrl(pattern.documentId)}
           key={pattern.documentId}
           onClick={() => {
-            analyticsStore.sendEvent(AnalyticsEvent.clickCardHome, {
+            analyticsStore.sendEvent(AnalyticsEvent.clickCard, {
               cardDocumentId: pattern.documentId,
               cardTitle: pattern.title,
+              location: 'home',
             });
           }}
         >

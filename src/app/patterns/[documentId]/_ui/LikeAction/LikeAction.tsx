@@ -30,7 +30,7 @@ const LikeAction: React.FC<{ documentId: string }> = observer(({ documentId }) =
     }
     userStore.likePattern({ pattern: patternDetailsStore.shortData });
     analyticsStore.sendEvent(AnalyticsEvent.clickLike, {
-      cardId: documentId,
+      cardDocumentId: documentId,
       isFavorite: !isFavorite,
     });
   };

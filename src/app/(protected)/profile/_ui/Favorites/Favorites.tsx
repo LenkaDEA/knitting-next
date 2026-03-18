@@ -47,9 +47,10 @@ const Favorites: React.FC<FavoritesProps> = ({ patterns = [] }) => {
                 subtitle={pattern.shortDescription}
                 actionSlot={<ToolDisplay tool={pattern.tool} />}
                 onClick={() => {
-                  analyticsStore.sendEvent(AnalyticsEvent.clickCardFavorites, {
+                  analyticsStore.sendEvent(AnalyticsEvent.clickCard, {
                     cardDocumentId: pattern.documentId,
                     cardTitle: pattern.title,
+                    location: 'favorites',
                   });
                 }}
               />
