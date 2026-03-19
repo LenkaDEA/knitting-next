@@ -23,7 +23,7 @@ const LikeAction: React.FC<{ documentId: string }> = observer(({ documentId }) =
   const rootRef = useRef<HTMLDivElement>(null);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (!isFavorite) {
       animate(
         scope.current,
@@ -33,14 +33,16 @@ const LikeAction: React.FC<{ documentId: string }> = observer(({ documentId }) =
     } else {
       animate(scope.current, { scale: [1, 0.75, 1] }, { duration: 0.3, ease: 'easeOut' });
     }
-    userStore.likePattern({ pattern: patternDetailsStore.shortData });
+    await userStore.likePattern({ pattern: patternDetailsStore.shortData });
 
     if (userStore.likeMeta === Meta.success) {
       analyticsStore.sendEvent(AnalyticsEvent.clickLike, {
         cardDocumentId: documentId,
         isFavorite: !isFavorite,
       });
-    } else {
+    }
+
+    if (userStore.likeMeta === Meta.error) {
       setIsOpenLogin(true);
     }
   };
