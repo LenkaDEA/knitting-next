@@ -9,8 +9,10 @@
 
   &__picture {
     width: 100%;
-    min-height: 300px;
+    height: auto;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
+    display: block;
 
     background: var(--color-card-image-bg);
 
@@ -23,8 +25,6 @@
     margin-bottom: var(--space-xl);
     padding-left: var(--space-xs);
     padding-right: var(--space-xs);
-
-    height: 100%;
 
     display: flex;
     flex-direction: column;
