@@ -21,7 +21,7 @@ const UserProfile: React.FC = observer(() => {
   const router = useRouter();
 
   const handleCreatePattern = () => {
-    router.replace(ROUTES.CREATE_PATTERN);
+    router.push(ROUTES.CREATE_PATTERN);
     analyticsStore.sendEvent(AnalyticsEvent.clickCreatePattern, {
       userDocumentId: userStore.data.documentId,
       userName: userStore.data.username,
@@ -43,7 +43,14 @@ const UserProfile: React.FC = observer(() => {
   return (
     <div className={styles.profile}>
       <div className={styles.profile__body}>
-        <Image alt={'Фотография изделия'} src={defaultUser} className={styles.profile__mainPhoto} />
+        <Image
+          alt={'Фотография пользователя'}
+          src={defaultUser}
+          className={styles.profile__mainPhoto}
+          loading="eager"
+          width={400}
+          height={400}
+        />
         <div className={styles.profile__info}>
           <div className={styles.profile__subtitle}>
             <Text view="p-l" color="secondary">

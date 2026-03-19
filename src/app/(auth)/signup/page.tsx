@@ -79,7 +79,7 @@ const RegisterForm: React.FC = observer(() => {
           />
         </div>
 
-        {userStore.authMeta === Meta.error && (
+        {userStore.regMeta === Meta.error && (
           <Text color="error">Пользователь с таким именем или почтой уже есть</Text>
         )}
 

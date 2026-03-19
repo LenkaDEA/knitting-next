@@ -39,7 +39,7 @@ export type MapAnalyticsEventToPayload = {
   };
 
   [AnalyticsEvent.clickSignUp]: {
-    fromLocation: 'login';
+    fromLocation: 'login' | 'modal';
   };
 
   [AnalyticsEvent.registrationSuccess]: {

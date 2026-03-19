@@ -24,7 +24,14 @@ const About: React.FC = () => {
   return (
     <div className={styles.about}>
       <div className={styles.about__header}>
-        <Image className={styles.about__mainPhoto} src={photoMe} alt={'Фотография Лены'} />
+        <Image
+          className={styles.about__mainPhoto}
+          src={photoMe}
+          alt={'Фотография Лены'}
+          loading="eager"
+          width={400}
+          height={400}
+        />
         <div className={styles.about__mission}>
           <Text view="title" color="accent" weight="bold">
             Искусство в каждой петельке
@@ -54,6 +61,9 @@ const About: React.FC = () => {
                 className={styles.about__photo}
                 src={hobby.photo}
                 alt={`Фотография хобби - ${hobby.name}`}
+                loading="eager"
+                width={200}
+                height={200}
               />
               <Text view="p-l" color="accent" weight="medium">
                 {hobby.name}

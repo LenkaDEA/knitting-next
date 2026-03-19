@@ -31,7 +31,13 @@ const Error: React.FC<ErrorProps> = ({ reset }) => {
         Узелок на нитке
       </Text>
 
-      <Image className={styles.notFound__img} src={imgTangle} alt="Запутавшиеся нитки" />
+      <Image
+        className={styles.notFound__img}
+        src={imgTangle}
+        alt="Запутавшиеся нитки"
+        width={400}
+        height={400}
+      />
 
       <Text view="p-l" weight="medium" color="accent">
         Петля сорвалась, но мы уже ищем крючок, чтобы все исправить. Попробуем распутать?
