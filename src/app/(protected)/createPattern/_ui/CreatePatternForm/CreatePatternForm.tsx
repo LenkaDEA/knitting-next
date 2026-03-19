@@ -33,12 +33,18 @@ const initialState: CreatePatternModel = {
   videoUrl: '',
 };
 
-type ErrorType = 'empty_data' | 'bad_request' | 'big_size_file' | null;
+type ErrorType = 'empty_data' | 'bad_request' | 'big_size_file' | 'rutube_format_error' | null;
 
 const ErrorValues = {
   empty_data: 'Пожалуйста, заполните все обязательные поля',
   bad_request: 'Ошибка сохранения: данные не уникальны или сервер недоступен',
   big_size_file: 'Размер файла слишком большой (макс. 15 МБ)',
+  rutube_format_error: 'Введите корректную ссылку на видео RuTube',
+};
+
+const isRutubeUrl = (url: string): boolean => {
+  const rutubeRegex = /^https?:\/\/(www\.)?rutube\.ru\/video\/[a-f0-9]{32}\/?.*$/i;
+  return rutubeRegex.test(url);
 };
 
 const TOOL_OPTIONS = Object.values(TOOLS).map((item) => ({
@@ -107,6 +113,12 @@ const CreatePatternForm: React.FC = observer(() => {
 
   const handlePostPattern = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!isRutubeUrl(state.videoUrl) && state.videoUrl) {
+      setErrorType('rutube_format_error');
+      return;
+    }
+
     setIsLoading(true);
     createPatternStore.updateData(state);
     try {
