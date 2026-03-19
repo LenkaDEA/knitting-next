@@ -24,13 +24,20 @@ import {
   type UserModel,
 } from '@/stores/models/user';
 
-type PRIVATE_FIELDS_USER = '_data' | '_authMeta' | '_likeMeta' | '_isAuth' | '_checkedAuth';
+type PRIVATE_FIELDS_USER =
+  | '_data'
+  | '_authMeta'
+  | '_regMeta'
+  | '_likeMeta'
+  | '_isAuth'
+  | '_checkedAuth';
 
 const initialUser = { documentId: '', username: '', email: '', jwt: '' };
 
 class UserStore implements ILoginStore {
   private readonly _rootStore: RootStore;
   private _authMeta: MetaType = Meta.initial;
+  private _regMeta: MetaType = Meta.initial;
   private _likeMeta: MetaType = Meta.initial;
   private _data: UserModel = initialUser;
   private _isAuth = false;
@@ -41,11 +48,13 @@ class UserStore implements ILoginStore {
     makeObservable<UserStore, PRIVATE_FIELDS_USER>(this, {
       _data: observable.ref,
       _authMeta: observable,
+      _regMeta: observable,
       _likeMeta: observable,
       _isAuth: observable,
       _checkedAuth: observable,
       data: computed,
       authMeta: computed,
+      regMeta: computed,
       likeMeta: computed,
       isAuth: computed,
       checkedAuth: computed,
@@ -60,6 +69,9 @@ class UserStore implements ILoginStore {
 
   get authMeta(): MetaType {
     return this._authMeta;
+  }
+  get regMeta(): MetaType {
+    return this._regMeta;
   }
 
   get likeMeta(): MetaType {
@@ -76,12 +88,12 @@ class UserStore implements ILoginStore {
 
   async getRegistration(params: GetUserRegistrationParams): Promise<boolean> {
     runInAction(() => {
-      if (this._authMeta === Meta.loading) return false;
+      if (this._regMeta === Meta.loading) return false;
     });
 
     try {
       runInAction(() => {
-        this._authMeta = Meta.loading;
+        this._regMeta = Meta.loading;
       });
 
       const response = await this._rootStore.apiStore.request<UserLoginApi>({
@@ -99,16 +111,16 @@ class UserStore implements ILoginStore {
           this._data = normalizeLoginUser(response.data);
           authService.setToken(response.data.jwt);
           this._isAuth = true;
-          this._authMeta = Meta.success;
+          this._regMeta = Meta.success;
           return true;
         } else {
-          this._authMeta = Meta.error;
+          this._regMeta = Meta.error;
           return false;
         }
       });
     } catch {
       runInAction(() => {
-        this._authMeta = Meta.error;
+        this._regMeta = Meta.error;
       });
       return false;
     }
@@ -275,6 +287,7 @@ class UserStore implements ILoginStore {
 
   destroy() {
     this._authMeta = Meta.initial;
+    this._regMeta = Meta.initial;
     this._likeMeta = Meta.initial;
     this._data = initialUser;
     this._isAuth = false;
