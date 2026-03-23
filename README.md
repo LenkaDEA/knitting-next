@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ![Логотип](.github/assets/mainLogo.svg) Knitting
 
-## Getting Started
+<div align="center">
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![MobX](https://img.shields.io/badge/MobX-FF6000?style=for-the-badge&logo=mobx&logoColor=white)
+![Strapi](https://img.shields.io/badge/Strapi-2F2E8B?style=for-the-badge&logo=strapi&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+</div>
+
+
+Цифровая платформа для любителей вязания, позволяющая создавать уроки, подбирать инструменты (спицы, крючки), оформлять паттерны и делиться своим творчеством.
+
+## Функционал
+- **Каталог мастер-классов:** просмотр списка мастер-классов.
+- **Поиск и фильтрация:** поиск уроков по ключевым словам и выбранным категориям.
+- **Бесконечный скролл:** автоматическая подгрузка мастер-классов при скролле.
+- **Авторизация пользователя:** возможность входа в систему.
+- **Избранное:** возможность добавить мастер-классы в избранное.
+- **Адаптивный интерфейс:** корректное отображение на мобильных устройствах, планшетах и десктопах.
+- **Создание мастер-классов:** возможность авторизованному пользователю создать мастер-класс, который будет доступен всем пользователям сайта.
+
+
+
+## Технологический стек
+
+- **Core:** Next.js (App Router), TypeScript, React.
+- **State Management:** MobX (с поддержкой гидратации).
+- **Styles:** SCSS Modules, BEM, `next-themes` (темная/светлая темы).
+- **Performance:** Сжатие изображений на клиенте перед загрузкой в S3.
+- **Analytics:** Яндекс Метрика (мониторинг трафика и поведения пользователей).
+
+## Настройка окружения
+Создайте файл `.env` в корне проекта и добавьте следующие переменные:
+```env
+NEXT_PUBLIC_STRAPI_URL=ваш_url_бекенда
+NEXT_PUBLIC_YM_ID=ваш_id
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Если backend запущен локально на порту 1337 (http://localhost:1337), переменная `NEXT_PUBLIC_STRAPI_URL` не требуется.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Локальный запуск
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Для полноценной работы платформы необходимо развернуть обе части: клиентскую и серверную.
 
-## Learn More
+### 1. Настройка Backend (Обязательный шаг)
 
-To learn more about Next.js, take a look at the following resources:
+Проект работает в связке со **Strapi 5**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Фронтенд получает все данные через API. Перед запуском клиентской части убедитесь, что бекенд настроен и запущен.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Репозиторий:** [knitting-backend](https://github.com/LenkaDEA/knitting-backend)
+- Перейдите в репозиторий бекенда и следуйте локальным инструкциям по запуску Strapi и привязке S3 бакета.
 
-## Deploy on Vercel
+### 2. Запуск Frontend
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Клонируйте репозиторий и перейдите в директорию проекта:
+```bash
+git clone https://github.com/LenkaDEA/knitting-next.git
+cd knitting-next
+```
+2. Установите зависимости удобным для вас пакетным менеджером:
+```bash
+npm install
+# или
+yarn install
+```
+3. Запустите проект в режиме разработки:
+```bash
+npm run dev
+# или
+yarn dev
+```
+4. Откройте в браузере: Приложение будет доступно по адресу http://localhost:3000
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Архитектура проекта
+![Архитектура проекта](.github/assets/architecture.png)
+## Таблица сценариев для Яндекс Метрик
+
+| Сценарий | Событие | Значение |
+| :--- | :--- | :--- |
+| **Добавление в избранное** | Переход к мастер-классу (с главной страницы или из профиля) | `click_card` |
+| | Добавление мастер-класса в избранное | `click_like` |
+| **Создание мастер-класса** | Инициация процесса создания (клик по кнопке) | `click_create_pattern` |
+| | Успешное сохранение мастер-класса | `click_save_pattern` |
+| | Ошибка при валидации или сохранении данных | `error_save_pattern` |
+| **Регистрация** | Переход к форме регистрации пользователя | `click_signup` |
+| | Успешное завершение регистрации (создание аккаунта) | `registration_success` |
+| **Авторизация** | Выход из учетной записи | `click_logout` |
+
+
+## Лицензия
+Этот проект распространяется под лицензией [MIT](https://opensource.org/licenses/MIT).
