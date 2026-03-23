@@ -1,5 +1,9 @@
 # ![Logo](.github/assets/mainLogo.svg) Knitting
 
+<p align="center">
+  <b>English</b> • <a href="README.ru.md">Русский</a>
+</p>
+
 <div align="center">
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
@@ -10,9 +14,6 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
 
 </div>
-
-Read this in other languages: [Русский](README.ru.md)
-
 
 A digital platform for knitting enthusiasts, allowing them to create tutorials, select tools (knitting needles, crochet hooks), design patterns, and share their creativity.
 
