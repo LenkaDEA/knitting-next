@@ -1,4 +1,4 @@
-# ![Логотип](.github/assets/mainLogo.svg) Knitting
+# ![Logo](.github/assets/mainLogo.svg) Knitting
 
 <div align="center">
 
@@ -11,86 +11,87 @@
 
 </div>
 
-
-Цифровая платформа для любителей вязания, позволяющая создавать уроки, подбирать инструменты (спицы, крючки), оформлять паттерны и делиться своим творчеством.
-
-## Функционал
-- **Каталог мастер-классов:** просмотр списка мастер-классов.
-- **Поиск и фильтрация:** поиск уроков по ключевым словам и выбранным категориям.
-- **Бесконечный скролл:** автоматическая подгрузка мастер-классов при скролле.
-- **Авторизация пользователя:** возможность входа в систему.
-- **Избранное:** возможность добавить мастер-классы в избранное.
-- **Адаптивный интерфейс:** корректное отображение на мобильных устройствах, планшетах и десктопах.
-- **Создание мастер-классов:** возможность авторизованному пользователю создать мастер-класс, который будет доступен всем пользователям сайта.
+Read this in other languages: [Русский](README.ru.md)
 
 
+A digital platform for knitting enthusiasts, allowing them to create tutorials, select tools (knitting needles, crochet hooks), design patterns, and share their creativity.
 
-## Технологический стек
+## Features
+- **Tutorial Catalog:** Browse the list of available tutorials.
+- **Search & Filtering:** Find lessons by keywords and selected categories.
+- **Infinite Scrolling:** Automatic loading of tutorials as you scroll down the page.
+- **Authentication:** Secure user login and registration.
+- **Favorites:** Ability to save your favorite tutorials.
+- **Responsive Design:** Optimized for seamless use across mobile devices, tablets, and desktops.
+- **Tutorial Creation:** Authorized users can create and publish tutorials that will be available to all site visitors.
+
+## Tech Stack
 
 - **Core:** Next.js (App Router), TypeScript, React.
-- **State Management:** MobX (с поддержкой гидратации).
-- **Styles:** SCSS Modules, BEM, `next-themes` (темная/светлая темы).
-- **Performance:** Сжатие изображений на клиенте перед загрузкой в S3.
-- **Analytics:** Яндекс Метрика (мониторинг трафика и поведения пользователей).
+- **State Management:** MobX (with hydration support).
+- **Styles:** SCSS Modules, BEM, `next-themes` (dark/light modes).
+- **Performance:** Client-side image compression before S3 upload.
+- **Analytics:** Yandex Metrica (traffic and user behavior monitoring).
 
-## Настройка окружения
-Создайте файл `.env` в корне проекта и добавьте следующие переменные:
+## Environment Setup
+Create a `.env` file in the root of the project and add the following variables:
 ```env
-NEXT_PUBLIC_STRAPI_URL=ваш_url_бекенда
-NEXT_PUBLIC_YM_ID=ваш_id
+NEXT_PUBLIC_STRAPI_URL=your_backend_url
+NEXT_PUBLIC_YM_ID=your_id
 ```
 
-Если backend запущен локально на порту 1337 (http://localhost:1337), переменная `NEXT_PUBLIC_STRAPI_URL` не требуется.
+If the backend is running locally on port 1337 (http://localhost:1337), the `NEXT_PUBLIC_STRAPI_URL` variable is not required.
 
-## Локальный запуск
+## Local Development
 
-Для полноценной работы платформы необходимо развернуть обе части: клиентскую и серверную.
+To run the platform fully, both the client and server parts need to be set up.
 
-### 1. Настройка Backend (Обязательный шаг)
+### 1. Backend Setup (Required)
 
-Проект работает в связке со **Strapi 5**.
+This project works in conjunction with **Strapi 5**.
 
-Фронтенд получает все данные через API. Перед запуском клиентской части убедитесь, что бекенд настроен и запущен.
+The frontend receives all data via API. Before launching the client side, ensure the backend is configured and running.
 
-- **Репозиторий:** [knitting-backend](https://github.com/LenkaDEA/knitting-backend)
-- Перейдите в репозиторий бекенда и следуйте локальным инструкциям по запуску Strapi и привязке S3 бакета.
+- **Repository:** [knitting-backend](https://github.com/LenkaDEA/knitting-backend)
+- Go to the backend repository and follow the local instructions to start Strapi and link your S3 bucket.
 
-### 2. Запуск Frontend
+### 2. Frontend Launch
 
-1. Клонируйте репозиторий и перейдите в директорию проекта:
+1. Clone the repository and navigate to the project directory:
 ```bash
 git clone https://github.com/LenkaDEA/knitting-next.git
 cd knitting-next
 ```
-2. Установите зависимости удобным для вас пакетным менеджером:
+2. Install dependencies using your preferred package manager:
 ```bash
 npm install
-# или
+# or
 yarn install
 ```
-3. Запустите проект в режиме разработки:
+3. Start the development server:
 ```bash
 npm run dev
 # или
 yarn dev
 ```
-4. Откройте в браузере: Приложение будет доступно по адресу http://localhost:3000
+4. Open in browser: The application will be available at http://localhost:3000
 
-## Архитектура проекта
-![Архитектура проекта](.github/assets/architecture.png)
-## Таблица сценариев для Яндекс Метрик
+## Project Architecture
+![Project Architecture](.github/assets/architecture.png)
 
-| Сценарий | Событие | Значение |
+## Yandex Metrica Tracking Scenarios
+
+| Scenario | Event Description | Value |
 | :--- | :--- | :--- |
-| **Добавление в избранное** | Переход к мастер-классу (с главной страницы или из профиля) | `click_card` |
-| | Добавление мастер-класса в избранное | `click_like` |
-| **Создание мастер-класса** | Инициация процесса создания (клик по кнопке) | `click_create_pattern` |
-| | Успешное сохранение мастер-класса | `click_save_pattern` |
-| | Ошибка при валидации или сохранении данных | `error_save_pattern` |
-| **Регистрация** | Переход к форме регистрации пользователя | `click_signup` |
-| | Успешное завершение регистрации (создание аккаунта) | `registration_success` |
-| **Авторизация** | Выход из учетной записи | `click_logout` |
+| **Add to Favorites** | Navigation to a tutorial (from the main page or profile) | `click_card` |
+| | Adding a tutorial to favorites | `click_like` |
+| **Tutorial Creation** | Initiation of the creation process (button click) | `click_create_pattern` |
+| | Successful tutorial save | `click_save_pattern` |
+| | Error during data validation or saving | `error_save_pattern` |
+| **Registration** | Navigation to the user registration form | `click_signup` |
+| | Successful registration completion (account creation) | `registration_success` |
+| **Authentication** | Account logout | `click_logout` |
 
 
-## Лицензия
-Этот проект распространяется под лицензией [MIT](https://opensource.org/licenses/MIT).
+## License
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
